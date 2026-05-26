@@ -18,8 +18,13 @@ void Engine::initCurses(){
 }
 
 void Engine::initPanels(){
+    int y, x;
+    getmaxyx(stdscr, y, x);
 
-    w_world = newwin(MAP_HEIGHT, MAP_WIDTH, 0, 0);
+    int y_pad = (y - MAP_HEIGHT) / 2;
+    int x_pad = (x - MAP_WIDTH) / 2;
+
+    w_world = newwin(MAP_HEIGHT, MAP_WIDTH, y_pad, x_pad);
 
     world.initMap();
     world.initEntities();
