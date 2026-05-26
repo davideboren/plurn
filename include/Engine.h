@@ -9,7 +9,7 @@
 class Engine {
     public:
         Engine();
-        void initCurses();
+        bool initCurses();
         void initPanels();
         void gameLoop();
 

@@ -6,8 +6,16 @@ struct Position {
    int x;
 };
 
+struct Room {
+    int height;
+    int width;
+    Position pos;
+    Position center;
+};
+
 struct Tile {
     char ch;
+    int color;
     bool walkable; 
     bool transparent;
     bool visible;

@@ -10,7 +10,9 @@ int main(){
 
     Engine engine;
 
-    engine.initCurses();
+    if(!engine.initCurses()){
+        endwin();
+    }
     engine.initPanels();
 
     engine.gameLoop();
