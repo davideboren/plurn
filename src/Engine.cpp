@@ -22,13 +22,13 @@ void Engine::initPanels(){
     w_world = newwin(MAP_HEIGHT, MAP_WIDTH, 0, 0);
 
     world.initMap();
+    world.initEntities();
 
 }
 
 void Engine::gameLoop(){
     int ch;
 
-    //render();
     while(ch = getch()){
         if(ch == 'q'){
             break;

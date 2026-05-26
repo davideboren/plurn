@@ -10,19 +10,3 @@ void Player::initPlayer(int y, int x){
     pos.x = x;
 }
 
-void Player::handleInput(int input){
-    switch(input){
-    case 'h':
-        pos.x--;
-        break;
-    case 'j':
-        pos.y++;
-        break;
-    case 'k':
-        pos.y--;
-        break;
-    case 'l':
-        pos.x++;
-        break;
-    }
-}
