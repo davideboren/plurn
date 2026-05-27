@@ -7,7 +7,7 @@ class Entity {
 
     public:
         Position pos;
-        char ch;
+        int ch;
         int color;
 };
 

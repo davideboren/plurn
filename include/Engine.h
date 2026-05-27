@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <ncurses.h>
+#include <string>
 
 #include <World.h>
 
@@ -19,8 +20,8 @@ class Engine {
         void render();
 
         WINDOW* w_world;
+        WINDOW* w_info;
         World world;
-        int px, py;
 
 };
 

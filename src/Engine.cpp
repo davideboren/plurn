@@ -2,6 +2,7 @@
 
 #include <ncurses.h>
 #include <vector>
+#include <string>
 
 #include <constants.h>
 #include <Player.h>
@@ -22,8 +23,8 @@ bool Engine::initCurses(){
 
         init_pair(PLAYER_COLOR, COLOR_YELLOW, COLOR_BLACK);
         init_pair(VISIBLE_COLOR, COLOR_WHITE, COLOR_BLACK);
-        init_pair(SEEN_COLOR, COLOR_RED, COLOR_BLACK);
-        init_pair(NPC_COLOR, COLOR_BLUE, COLOR_BLACK);
+        init_pair(SEEN_COLOR, COLOR_BLUE, COLOR_BLACK);
+        init_pair(MONSTER_COLOR, COLOR_RED, COLOR_BLACK);
     } else {
         mvprintw(0, 0, "No color support, dying.");
         getch();
@@ -37,14 +38,14 @@ void Engine::initPanels(){
     int y, x;
     getmaxyx(stdscr, y, x);
 
-    int y_pad = (y - MAP_HEIGHT + 2) / 2;
-    int x_pad = (x - MAP_WIDTH + 2) / 2;
+    int y_pad = (y - SCREEN_HEIGHT) / 2;
+    int x_pad = (x - SCREEN_WIDTH) / 2;
 
-    w_world = newwin(MAP_HEIGHT + 2, MAP_WIDTH + 2, y_pad, x_pad);
+    w_world = newwin(MAP_HEIGHT, MAP_WIDTH, y_pad, x_pad);
+    w_info = newwin(1, SCREEN_WIDTH, y_pad + MAP_HEIGHT, x_pad);
 
     world.initMap();
     world.initEntities();
-
 }
 
 void Engine::gameLoop(){
@@ -70,14 +71,24 @@ void Engine::update(){
 
 void Engine::render(){
     werase(w_world);
+    werase(w_info);
 
-    box(w_world, 0, 0);
+    // Render map
     for(int y = 0; y < MAP_HEIGHT; y++){
         for(int x = 0; x < MAP_WIDTH; x++){
-            mvwaddch(w_world, y + 1, x + 1, world.map.tiles[y][x].ch | world.map.tiles[y][x].color);
+            mvwaddch(w_world, y, x, world.map.tiles[y][x].ch | world.map.tiles[y][x].color);
         }
     }
-    mvwaddch(w_world, world.player.pos.y + 1, world.player.pos.x + 1, world.player.ch | world.player.color);
+
+    // Render entities
+    for(Entity* ent : world.ents){
+        mvwaddch(w_world, ent->pos.y, ent->pos.x, ent->ch | ent->color);
+    }
+
+    // Render info
+    std::string msg = world.log.pop();
+    mvwprintw(w_info, 0, 0, msg.c_str());
 
     wrefresh(w_world); 
+    wrefresh(w_info); 
 }

@@ -4,6 +4,10 @@
 struct Position {
    int y;
    int x;
+
+   bool operator==(const Position& other) const {
+       return y == other.y && x == other.x;
+   }
 };
 
 struct Room {
