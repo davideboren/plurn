@@ -1,13 +1,13 @@
-CC = g++
+CXX = ccache g++
 
-CFLAGS = -lncurses -Iinclude -Ilib
+CFLAGS = -g -lncurses -Ilib -Iinclude 
 
 SOURCES = ./src/*.cpp
 
 all: plurn run clean
 
 plurn:
-	$(CC) $(SOURCES) $(CFLAGS) -o plurn
+	$(CXX) $(SOURCES) $(CFLAGS) -o plurn
 
 run:
 	./plurn

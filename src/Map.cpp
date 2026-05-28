@@ -6,7 +6,7 @@
 #include <structs.h>
 #include <constants.h>
 
-void Map::initMap(){
+Map::Map(){
     for(int y = 0; y < MAP_HEIGHT; y++){
         for(int x = 0; x < MAP_WIDTH; x++){
             tiles[y][x].ch = '#';
@@ -17,14 +17,6 @@ void Map::initMap(){
             tiles[y][x].seen = false;
         }
     }
-
-    /*
-    Room r1 = createRoom(5, 65, 5, 10);
-    Room r2 = createRoom(10, 40, 5, 10);
-    placeRoom(r1);
-    placeRoom(r2);
-    connectPoints(r1.center, r2.center);
-    */
 }
 
 Room Map::createRoom(int y, int x, int height, int width){

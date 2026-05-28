@@ -7,12 +7,8 @@
 #include <Entity.h>
 #include <ncurses.h>
 
-void World::initMap(){
-    map.initMap();
-}
-
 void World::initEntities(){
-    player.pos = {7, 70};
+    player.initPlayer(7, 70);
     ents.push_back(&player);
 
     Entity* goblin = new Entity;

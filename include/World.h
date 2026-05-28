@@ -12,7 +12,6 @@
 
 class World {
     public:
-        void initMap();
         void initEntities();
 
         void handleInput(int input);

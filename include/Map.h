@@ -6,7 +6,7 @@
 
 class Map {
     public:
-        void initMap();
+        Map();
 
         Room createRoom(int y, int x, int height, int width);
         void placeRoom(Room& room);

@@ -5,7 +5,6 @@
 
 class Player : public Entity{
     public:
-        Player();
         void initPlayer(int y, int x);
 };
 

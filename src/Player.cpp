@@ -5,12 +5,9 @@
 #include <constants.h>
 #include <Entity.h>
 
-Player::Player(){
-   ch = '@';
-   color = COLOR_PAIR(PLAYER_COLOR);
-}
-
 void Player::initPlayer(int y, int x){
+    ch = '@';
+    color = COLOR_PAIR(PLAYER_COLOR);
     pos.y = y;
     pos.x = x;
 }

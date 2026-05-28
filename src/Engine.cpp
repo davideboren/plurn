@@ -9,7 +9,7 @@
 #include <Logger.h>
 #include <Player.h>
 #include <World.h>
-#include <WorldBuilder.h>
+#include <MapBuilder.h>
 
 Engine::Engine(){
     
@@ -34,6 +34,7 @@ bool Engine::initCurses(){
         return false;
     }
 
+
     return true;
 }
 
@@ -47,12 +48,11 @@ void Engine::initPanels(){
     w_world = newwin(MAP_HEIGHT, MAP_WIDTH, y_pad, x_pad);
     w_info = newwin(1, SCREEN_WIDTH, y_pad + MAP_HEIGHT, x_pad);
 
-    WorldBuilder wb;
-    World w = wb.buildWorldFromJSONFile("data/map1.json");
-    world = std::move(w);
+    MapBuilder mb;
+    Map m = mb.buildMapFromJSONFile("data/map1.json");
+    world.map = m;
 
-    //world.initMap();
-    //world.initEntities();
+    world.initEntities();
 }
 
 void Engine::gameLoop(){
@@ -89,10 +89,8 @@ void Engine::render(){
 
     // Render entities
     for(Entity* ent : world.ents){
-        log(ent->ch);
         mvwaddch(w_world, ent->pos.y, ent->pos.x, ent->ch | ent->color);
     }
-    mvwaddch(w_world, world.player.pos.y, world.player.pos.x, world.player.ch | world.player.color);
 
     // Render info
     std::string msg = world.log.pop();
