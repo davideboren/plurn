@@ -9,13 +9,12 @@ int main(){
 
     Logger::init("debug.log");
 
-    WINDOW* w_world;
-
     Engine engine;
 
     if(!engine.initCurses()){
         endwin();
     }
+
     engine.initPanels();
 
     engine.gameLoop();

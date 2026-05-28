@@ -4,7 +4,6 @@
 #include <vector>
 
 #include <structs.h>
-#include <constants.h>
 #include <Entity.h>
 #include <Log.h>
 #include <Map.h>

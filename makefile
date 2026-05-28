@@ -1,16 +1,25 @@
 CXX = ccache g++
 
-CFLAGS = -g -lncurses -Ilib -Iinclude 
+CFLAGS = -g -Ilib -Iinclude -Wall -Wextra -std=c++20
 
-SOURCES = ./src/*.cpp
+LDFLAGS = -lncurses
 
-all: plurn run clean
+SRC := $(wildcard src/*.cpp)
+OBJ := $(SRC:.cpp=.o)
 
-plurn:
-	$(CXX) $(SOURCES) $(CFLAGS) -o plurn
+TARGET = plurn
 
-run:
-	./plurn
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CXX) $(OBJ) $(LDFLAGS) -o $(TARGET) 
+
+src/%.o: src/%.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+run: $(TARGET)
+	./$(TARGET)
 
 clean:
-	rm plurn
+	rm -f $(OBJ) $(TARGET)
+

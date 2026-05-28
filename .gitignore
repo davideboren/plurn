@@ -1,2 +1,4 @@
+plurn
 *.swp
 *.log
+*.o

@@ -1,9 +1,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include <vector>
 #include <ncurses.h>
-#include <string>
 
 #include <World.h>
 
