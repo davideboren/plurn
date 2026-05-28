@@ -1,6 +1,6 @@
 CC = g++
 
-CFLAGS = -lncurses -Iinclude
+CFLAGS = -lncurses -Iinclude -Ilib
 
 SOURCES = ./src/*.cpp
 

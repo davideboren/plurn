@@ -3,8 +3,11 @@
 
 #include <constants.h>
 #include <Engine.h>
+#include <Logger.h>
 
 int main(){
+
+    Logger::init("debug.log");
 
     WINDOW* w_world;
 

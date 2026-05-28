@@ -18,11 +18,13 @@ void Map::initMap(){
         }
     }
 
+    /*
     Room r1 = createRoom(5, 65, 5, 10);
     Room r2 = createRoom(10, 40, 5, 10);
     placeRoom(r1);
     placeRoom(r2);
     connectPoints(r1.center, r2.center);
+    */
 }
 
 Room Map::createRoom(int y, int x, int height, int width){

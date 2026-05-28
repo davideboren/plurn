@@ -3,10 +3,13 @@
 #include <ncurses.h>
 #include <vector>
 #include <string>
+#include <fstream>
 
 #include <constants.h>
+#include <Logger.h>
 #include <Player.h>
 #include <World.h>
+#include <WorldBuilder.h>
 
 Engine::Engine(){
     
@@ -44,8 +47,12 @@ void Engine::initPanels(){
     w_world = newwin(MAP_HEIGHT, MAP_WIDTH, y_pad, x_pad);
     w_info = newwin(1, SCREEN_WIDTH, y_pad + MAP_HEIGHT, x_pad);
 
-    world.initMap();
-    world.initEntities();
+    WorldBuilder wb;
+    World w = wb.buildWorldFromJSONFile("data/map1.json");
+    world = std::move(w);
+
+    //world.initMap();
+    //world.initEntities();
 }
 
 void Engine::gameLoop(){
@@ -82,8 +89,10 @@ void Engine::render(){
 
     // Render entities
     for(Entity* ent : world.ents){
+        log(ent->ch);
         mvwaddch(w_world, ent->pos.y, ent->pos.x, ent->ch | ent->color);
     }
+    mvwaddch(w_world, world.player.pos.y, world.player.pos.x, world.player.ch | world.player.color);
 
     // Render info
     std::string msg = world.log.pop();
