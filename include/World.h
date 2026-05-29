@@ -14,6 +14,7 @@ class World {
         void initEntities();
 
         void handleInput(int input);
+        void update();
         void tryMove(Entity* ent, Position delta);
         bool walkable(Position pos);
 

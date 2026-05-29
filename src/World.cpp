@@ -1,11 +1,14 @@
 #include <World.h>
 
+#include <ncurses.h>
 #include <random>
 
 #include <structs.h>
 #include <constants.h>
+#include <fov.h>
+
 #include <Entity.h>
-#include <ncurses.h>
+#include <Logger.h>
 
 void World::initEntities(){
     player.initPlayer(7, 70);
@@ -35,6 +38,11 @@ void World::handleInput(int input){
     default:
         break;
     }
+}
+
+void World::update(){
+    fov::clearFOV(&map, &player);
+    fov::makeFOV(&map, &player);
 }
 
 void World::tryMove(Entity* ent, Position delta){

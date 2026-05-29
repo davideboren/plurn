@@ -58,7 +58,7 @@ void Engine::initPanels(){
 void Engine::gameLoop(){
     int ch;
 
-    while(ch = getch()){
+    while((ch = getch())){
         if(ch == 'q'){
             break;
         }
@@ -74,6 +74,7 @@ int Engine::handleInput(int input){
 }
 
 void Engine::update(){
+    world.update();
 }
 
 void Engine::render(){
@@ -83,7 +84,13 @@ void Engine::render(){
     // Render map
     for(int y = 0; y < MAP_HEIGHT; y++){
         for(int x = 0; x < MAP_WIDTH; x++){
-            mvwaddch(w_world, y, x, world.map.tiles[y][x].ch | world.map.tiles[y][x].color);
+            if(world.map.tiles[y][x].visible){
+                mvwaddch(w_world, y, x, world.map.tiles[y][x].ch | world.map.tiles[y][x].color);
+            } else if(world.map.tiles[y][x].seen){
+                mvwaddch(w_world, y, x, world.map.tiles[y][x].ch | COLOR_PAIR(SEEN_COLOR));
+            } else{
+                mvwaddch(w_world, y, x, ' ');
+            }
         }
     }
 

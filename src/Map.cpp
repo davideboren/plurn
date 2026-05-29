@@ -42,10 +42,10 @@ void Map::placeRoom(Room& room){
         tiles[room.pos.y + room.height][x].ch = '-';
     }
 
-    tiles[room.pos.y][room.pos.x].ch = 'x';
-    tiles[room.pos.y + room.height][room.pos.x].ch = 'x';
-    tiles[room.pos.y][room.pos.x + room.width].ch = 'x';
-    tiles[room.pos.y + room.height][room.pos.x + room.width].ch = 'x';
+    //tiles[room.pos.y][room.pos.x].ch = 'x';
+    //tiles[room.pos.y + room.height][room.pos.x].ch = 'x';
+    //tiles[room.pos.y][room.pos.x + room.width].ch = 'x';
+    //tiles[room.pos.y + room.height][room.pos.x + room.width].ch = 'x';
 
     for(int y = room.pos.y + 1; y < room.pos.y + room.height; y++){
         for(int x = room.pos.x + 1; x < room.pos.x + room.width; x++){
@@ -92,16 +92,19 @@ void Map::connectPoints(Position c1, Position c2){
         Tile cur_tile = tiles[temp.y][temp.x];
 
         if(cur_tile.ch == ' '){
+            tiles[temp.y][temp.x].walkable = true;
+            tiles[temp.y][temp.x].transparent = true;
             tiles[temp.y][temp.x].ch = '#';
         } else if(cur_tile.ch == '|' || cur_tile.ch == '-'){
             tiles[temp.y][temp.x].ch = '+';
             tiles[temp.y][temp.x].transparent = false;
+            tiles[temp.y][temp.x].walkable = true;
             tiles[temp.y][temp.x].color = COLOR_PAIR(PLAYER_COLOR);
         } else {
             tiles[temp.y][temp.x].ch = '.';
+            tiles[temp.y][temp.x].walkable = true;
+            tiles[temp.y][temp.x].transparent = true;
         }
-        tiles[temp.y][temp.x].walkable = true;
-        tiles[temp.y][temp.x].transparent = true;
     }
 
 }
