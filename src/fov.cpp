@@ -22,7 +22,12 @@ namespace fov{
                 target.x = x;
                 distance = getDistance(player->pos, target);
 
-                if(distance < RADIUS){
+                int terrain_radius = RADIUS;
+                if(map->tiles[y][x].ch == '#'){
+                    terrain_radius = 2;
+                }
+
+                if(distance < terrain_radius){
                     if(isInMap(y, x) && lineOfSight(map, player->pos, target)){
                         map->tiles[y][x].visible = true;
                         map->tiles[y][x].seen = true;
