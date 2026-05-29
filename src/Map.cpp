@@ -5,6 +5,7 @@
 
 #include <structs.h>
 #include <constants.h>
+#include <Logger.h>
 
 Map::Map(){
     for(int y = 0; y < MAP_HEIGHT; y++){
@@ -42,10 +43,11 @@ void Map::placeRoom(Room& room){
         tiles[room.pos.y + room.height][x].ch = '-';
     }
 
-    //tiles[room.pos.y][room.pos.x].ch = 'x';
-    //tiles[room.pos.y + room.height][room.pos.x].ch = 'x';
-    //tiles[room.pos.y][room.pos.x + room.width].ch = 'x';
-    //tiles[room.pos.y + room.height][room.pos.x + room.width].ch = 'x';
+    int corner_ch = '-';
+    tiles[room.pos.y][room.pos.x].ch = corner_ch;
+    tiles[room.pos.y + room.height][room.pos.x].ch = corner_ch;
+    tiles[room.pos.y][room.pos.x + room.width].ch = corner_ch;
+    tiles[room.pos.y + room.height][room.pos.x + room.width].ch = corner_ch;
 
     for(int y = room.pos.y + 1; y < room.pos.y + room.height; y++){
         for(int x = room.pos.x + 1; x < room.pos.x + room.width; x++){
@@ -71,7 +73,22 @@ void Map::createRooms(){
 
 }*/
 
+Position Map::createRoomsBSP(int h, int w, Position pos){
+    if(h < MAX_ROOM_HEIGHT || w < MAX_ROOM_WIDTH){
+        Room r = createRoom(pos.y, pos.x, h-1, w-1);
+        placeRoom(r);
+        Logger::log("Made room: ");
+        return r.center;
+    } else {
+        Position new_pos_a = {pos.y, pos.x};
+        Position new_pos_b = {pos.y + h/2, pos.x};
+        //connectPoints(createRoomsBSP(h/2, w, new_pos_a), createRoomsBSP(h/2, w, new_pos_b));
+        createRoomsBSP(h/2, w, new_pos_a); createRoomsBSP(h/2, w, new_pos_b);
+    }
+}
+
 void Map::connectPoints(Position c1, Position c2){
+    Logger::log("Connect");
     Position temp;
     temp.y = c1.y;
     temp.x = c1.x;

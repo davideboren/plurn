@@ -9,6 +9,7 @@
 #include <Logger.h>
 #include <Player.h>
 #include <World.h>
+#include <Map.h>
 #include <MapBuilder.h>
 
 Engine::Engine(){
@@ -51,6 +52,7 @@ void Engine::initPanels(){
     MapBuilder mb;
     Map m = mb.buildMapFromJSONFile("data/map1.json");
     world.map = m;
+    //world.map.createRoomsBSP(MAP_HEIGHT, MAP_WIDTH, {0,0});
 
     world.initEntities();
 }
