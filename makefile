@@ -2,7 +2,7 @@ CXX = ccache g++
 
 CFLAGS = -g -Ilib -Iinclude -Wall -Wextra -std=c++20
 
-LDFLAGS = -lncurses
+LDFLAGS = -lncurses -lfmt
 
 SRC := $(wildcard src/*.cpp)
 OBJ := $(SRC:.cpp=.o)

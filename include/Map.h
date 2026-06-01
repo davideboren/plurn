@@ -16,8 +16,10 @@ class Map {
 
         Tile tiles[MAP_HEIGHT][MAP_WIDTH];
 
+        static const int MIN_ROOM_WIDTH = 4;
+        static const int MIN_ROOM_HEIGHT = 4;
         static const int MAX_ROOM_WIDTH = 10;
-        static const int MAX_ROOM_HEIGHT = 5;
+        static const int MAX_ROOM_HEIGHT = 8;
 };
 
 #endif

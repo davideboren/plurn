@@ -15,7 +15,7 @@ Map MapBuilder::buildMapFromJSONFile(const char* filename){
 
     Position prev_center = {-1, -1};
 
-    for(int i = 0; i < data["rooms"].size(); i++){
+    for(int i = 0; i < int(data["rooms"].size()); i++){
         Room r = map.createRoom(
             data["rooms"][i]["y"],
             data["rooms"][i]["x"],

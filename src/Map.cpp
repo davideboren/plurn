@@ -1,10 +1,11 @@
 #include <Map.h>
 
-#include <random>
 #include <ncurses.h>
+#include <fmt/core.h>
 
 #include <structs.h>
 #include <constants.h>
+#include <rng.h>
 #include <Logger.h>
 
 Map::Map(){
@@ -77,18 +78,24 @@ Position Map::createRoomsBSP(int h, int w, Position pos){
     if(h < MAX_ROOM_HEIGHT || w < MAX_ROOM_WIDTH){
         Room r = createRoom(pos.y, pos.x, h-1, w-1);
         placeRoom(r);
-        Logger::log("Made room: ");
         return r.center;
     } else {
         Position new_pos_a = {pos.y, pos.x};
-        Position new_pos_b = {pos.y + h/2, pos.x};
-        //connectPoints(createRoomsBSP(h/2, w, new_pos_a), createRoomsBSP(h/2, w, new_pos_b));
-        createRoomsBSP(h/2, w, new_pos_a); createRoomsBSP(h/2, w, new_pos_b);
+        Position new_pos_b;
+
+        int y_split = rng::rand(0,1);
+        if(y_split){
+            new_pos_b = {pos.y + h/2, pos.x};
+            connectPoints(createRoomsBSP(h/2, w, new_pos_a), createRoomsBSP(h/2, w, new_pos_b));
+        } else {
+            new_pos_b = {pos.y, pos.x + w/2};
+            connectPoints(createRoomsBSP(h, w/2, new_pos_a), createRoomsBSP(h, w/2, new_pos_b));
+        }
     }
 }
 
 void Map::connectPoints(Position c1, Position c2){
-    Logger::log("Connect");
+    Logger::log(fmt::format("Connecting ({}, {})->({}, {})", c1.y, c1.x, c2.y, c2.x));
     Position temp;
     temp.y = c1.y;
     temp.x = c1.x;
