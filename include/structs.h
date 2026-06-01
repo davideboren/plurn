@@ -11,10 +11,17 @@ struct Position {
 };
 
 struct Room {
+    Position pos;
     int height;
     int width;
-    Position pos;
     Position center;
+
+    Room(){}
+    Room(Position p, int h, int w):
+        pos(p), height(h), width(w){
+        center.y = (int)(p.y + height/2);
+        center.x = (int)(p.x + width/2);
+    }
 };
 
 struct Tile {

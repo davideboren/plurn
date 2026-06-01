@@ -22,6 +22,8 @@ class World {
         Log log;
         Player player;
         std::vector<Entity*> ents;
+
+        static const bool noclip = false;
 };
 
 #endif

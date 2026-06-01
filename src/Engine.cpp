@@ -52,7 +52,8 @@ void Engine::initPanels(){
     //MapBuilder mb;
     //Map m = mb.buildMapFromJSONFile("data/map1.json");
     //world.map = m;
-    world.map.createRoomsBSP(MAP_HEIGHT, MAP_WIDTH, {0,0});
+    //world.map.createRoomsBSP(MAP_HEIGHT - 2, MAP_WIDTH - 2, {1,1});
+    world.player.pos = world.map.createRoomsRandom();
 
     world.initEntities();
 }
@@ -86,7 +87,7 @@ void Engine::render(){
     // Render map
     for(int y = 0; y < MAP_HEIGHT; y++){
         for(int x = 0; x < MAP_WIDTH; x++){
-            if(world.map.tiles[y][x].visible){
+            if(world.map.tiles[y][x].visible || true){
                 mvwaddch(w_world, y, x, world.map.tiles[y][x].ch | world.map.tiles[y][x].color);
             } else if(world.map.tiles[y][x].seen){
                 mvwaddch(w_world, y, x, world.map.tiles[y][x].ch | COLOR_PAIR(SEEN_COLOR));

@@ -57,6 +57,12 @@ void World::tryMove(Entity* ent, Position delta){
 }
 
 bool World::walkable(Position pos){
+    if(pos.y >= MAP_HEIGHT || pos.x >= MAP_WIDTH){
+        return false;
+    } else if(noclip){
+        return true;
+    }
+
     for(Entity* ent : ents){
         if(ent->pos == pos){
             return false;

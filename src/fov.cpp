@@ -23,7 +23,7 @@ namespace fov{
                 distance = getDistance(player->pos, target);
 
                 int terrain_radius = RADIUS;
-                if(map->tiles[y][x].ch == '#'){
+                if(isInMap(y, x) && map->tiles[y][x].ch == '#'){
                     terrain_radius = 2;
                 }
 

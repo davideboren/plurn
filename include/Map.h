@@ -8,18 +8,20 @@ class Map {
     public:
         Map();
 
-        Room createRoom(int y, int x, int height, int width);
-        void placeRoom(Room& room);
-        void createRooms();
+        void digRoom(Room& room);
         Position createRoomsBSP(int h, int w, Position pos);
+        Position createRoomsRandom();
         void connectPoints(Position c1, Position c2);
+        void drawWalls();
 
         Tile tiles[MAP_HEIGHT][MAP_WIDTH];
 
+        static const int UNDEF_TILE = ' ';
         static const int MIN_ROOM_WIDTH = 4;
         static const int MIN_ROOM_HEIGHT = 4;
         static const int MAX_ROOM_WIDTH = 10;
         static const int MAX_ROOM_HEIGHT = 8;
+        static const int MAX_ROOM_AREA = 80;
 };
 
 #endif

@@ -16,14 +16,21 @@ Map MapBuilder::buildMapFromJSONFile(const char* filename){
     Position prev_center = {-1, -1};
 
     for(int i = 0; i < int(data["rooms"].size()); i++){
-        Room r = map.createRoom(
+        /*Room r = map.createRoom(
             data["rooms"][i]["y"],
             data["rooms"][i]["x"],
             data["rooms"][i]["h"],
             data["rooms"][i]["w"]
+        );*/
+        Room r(
+            {data["rooms"][i]["y"],
+            data["rooms"][i]["x"]},
+            data["rooms"][i]["h"],
+            data["rooms"][i]["w"]
         );
 
-        map.placeRoom(r);
+        map.digRoom(r);
+        map.drawWalls(); //Inefficient to do this here 
 
         if(prev_center.y != -1){
             map.connectPoints(prev_center, r.center);
@@ -31,6 +38,7 @@ Map MapBuilder::buildMapFromJSONFile(const char* filename){
 
         prev_center = r.center;
     }
+
 
     return map;
 
