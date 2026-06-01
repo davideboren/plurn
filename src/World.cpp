@@ -14,11 +14,13 @@ void World::initEntities(){
     player.initPlayer(7, 70);
     ents.push_back(&player);
 
+    /*
     Entity* goblin = new Entity;
     goblin->pos = {5, 71};
     goblin->ch = 'g';
     goblin->color = COLOR_PAIR(MONSTER_COLOR);
     ents.push_back(goblin);
+    */
 }
 
 void World::handleInput(int input){
@@ -41,11 +43,11 @@ void World::handleInput(int input){
 }
 
 void World::update(){
-    fov::clearFOV(&map, &player);
     fov::makeFOV(&map, &player);
 }
 
 void World::tryMove(Entity* ent, Position delta){
+    fov::clearFOV(&map, &player);
     Position new_pos = {ent->pos.y + delta.y, ent->pos.x + delta.x};
 
     if(walkable(new_pos)){

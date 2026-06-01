@@ -79,6 +79,42 @@ Position Map::createRoomsRandom(){
     return start;
 }
 
+Position Map::createRoomsSimple(){
+    int sector_rows = 3;
+    int sector_cols = 3;
+
+    Position prev_center = {-1, -1};
+    Position start_pos;
+
+    for(int y = 0; y < sector_rows; y++){
+        for(int x = 0; x < sector_cols; x++){
+            int sector_height = MAP_HEIGHT / 3;
+            int sector_width = MAP_WIDTH / 3;
+
+            int room_height = rng::rand(3, sector_height - 2);
+            int room_width = rng::rand(3, sector_width - 2);
+            int room_y = y * sector_height + rng::rand(1, sector_height - room_height - 1);
+            int room_x = x * sector_width + rng::rand(1, sector_width - room_width - 1);
+
+            Logger::log(fmt::format("Making room: ({}, {}), {}x{}", room_y, room_x, room_height, room_width));
+
+            Room r({room_y, room_x}, room_height, room_width);
+            digRoom(r);
+            drawWalls();
+
+            if(prev_center.y != -1){
+                connectPoints(r.center, prev_center);
+            } else {
+                start_pos = r.center;
+            }
+
+            prev_center = r.center;
+        }
+    }
+
+    return start_pos;
+}
+
 void Map::connectPoints(Position c1, Position c2){
     Logger::log(fmt::format("Connecting ({}, {})->({}, {})", c1.y, c1.x, c2.y, c2.x));
     Position temp;
@@ -114,8 +150,15 @@ void Map::connectPoints(Position c1, Position c2){
 }
 
 void Map::drawWalls(){
-    for(int y = 0; y < MAP_HEIGHT - 1; y++){
-        for(int x = 0; x < MAP_WIDTH - 1; x++){
+    for(int y = 0; y < MAP_HEIGHT - 0; y++){
+        for(int x = 0; x < MAP_WIDTH - 0; x++){
+            if(y == 0 || y == MAP_HEIGHT - 1){
+                tiles[y][x].ch = '-';
+                continue;
+            } else if(x == 0 || x == MAP_WIDTH - 1){
+                tiles[y][x].ch = '|';
+                continue;
+            }
             if(tiles[y][x].ch == UNDEF_TILE){
                 if(tiles[y-1][x].ch == '.' || tiles[y+1][x].ch == '.'){
                     tiles[y][x].ch = '-';

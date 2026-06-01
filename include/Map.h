@@ -11,6 +11,7 @@ class Map {
         void digRoom(Room& room);
         Position createRoomsBSP(int h, int w, Position pos);
         Position createRoomsRandom();
+        Position createRoomsSimple();
         void connectPoints(Position c1, Position c2);
         void drawWalls();
 

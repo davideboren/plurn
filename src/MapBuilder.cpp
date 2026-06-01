@@ -30,7 +30,7 @@ Map MapBuilder::buildMapFromJSONFile(const char* filename){
         );
 
         map.digRoom(r);
-        map.drawWalls(); //Inefficient to do this here 
+        map.drawWalls(); //Inefficient to do this here
 
         if(prev_center.y != -1){
             map.connectPoints(prev_center, r.center);
