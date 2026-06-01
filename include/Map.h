@@ -14,6 +14,7 @@ class Map {
         Position createRoomsSimple();
         void connectPoints(Position c1, Position c2);
         void drawWalls();
+        int charAt(int y, int x);
 
         Tile tiles[MAP_HEIGHT][MAP_WIDTH];
 

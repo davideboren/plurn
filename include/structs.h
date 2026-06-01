@@ -1,6 +1,8 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+#include <rng.h>
+
 struct Position {
    int y;
    int x;
@@ -19,8 +21,8 @@ struct Room {
     Room(){}
     Room(Position p, int h, int w):
         pos(p), height(h), width(w){
-        center.y = (int)(p.y + height/2);
-        center.x = (int)(p.x + width/2);
+        center.y = (int)(p.y + rng::rand(0, height - 1));
+        center.x = (int)(p.x + rng::rand(0, width - 1));
     }
 };
 
