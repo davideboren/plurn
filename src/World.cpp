@@ -6,21 +6,29 @@
 #include <structs.h>
 #include <constants.h>
 #include <fov.h>
+#include <rng.h>
 
 #include <Entity.h>
+#include <Monster.h>
 #include <Logger.h>
 
 void World::initEntities(){
-    player.initPlayer(7, 70);
+    player.initPlayer();
     ents.push_back(&player);
 
-    /*
-    Entity* goblin = new Entity;
-    goblin->pos = {5, 71};
-    goblin->ch = 'g';
-    goblin->color = COLOR_PAIR(MONSTER_COLOR);
-    ents.push_back(goblin);
-    */
+
+    for(int y = 0; y < MAP_HEIGHT; y++){
+        for(int x = 0; x < MAP_WIDTH; x++){
+            if(map.charAt(y, x) == '.' && !rng::rand(0,63)){
+                Monster* goblin = new Monster;
+                goblin->pos = {y, x};
+                goblin->ch = 'g';
+                goblin->color = COLOR_PAIR(MONSTER_COLOR);
+                ents.push_back(goblin);
+            }
+        }
+    }
+ 
 }
 
 void World::handleInput(int input){
@@ -43,11 +51,11 @@ void World::handleInput(int input){
 }
 
 void World::update(){
-    fov::makeFOV(&map, &player);
+    fov::makeFOV(&map, &ents, &player);
 }
 
 void World::tryMove(Entity* ent, Position delta){
-    fov::clearFOV(&map, &player);
+    fov::clearFOV(&map, &ents, &player);
     Position new_pos = {ent->pos.y + delta.y, ent->pos.x + delta.x};
 
     if(walkable(new_pos)){

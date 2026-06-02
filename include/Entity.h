@@ -7,8 +7,11 @@ class Entity {
 
     public:
         Position pos;
+        bool visible;
         int ch;
         int color;
+
+        void update();
 };
 
 #endif

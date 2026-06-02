@@ -5,7 +5,7 @@
 
 class Player : public Entity{
     public:
-        void initPlayer(int y, int x);
+        void initPlayer();
 };
 
 #endif

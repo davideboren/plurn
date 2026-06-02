@@ -1,13 +1,15 @@
 #include <fov.h>
 
+#include <cmath>
+#include <vector>
+
 #include <structs.h>
 #include <Entity.h>
 
-#include <cmath>
 
 namespace fov{
 
-    void makeFOV(Map* map, Entity* player){
+    void makeFOV(Map* map, std::vector<Entity*> *ents, Entity* player){
         int y, x, distance;
 
         int RADIUS = 12;
@@ -36,9 +38,16 @@ namespace fov{
                 }
             }
         }
+
+        player->visible = true;
+        for(Entity* ent : *ents){
+            if(lineOfSight(map, player->pos, ent->pos)){
+                ent->visible = true;
+            }
+        }
     }
  
-    void clearFOV(Map* map, Entity* player){
+    void clearFOV(Map* map, std::vector<Entity*> *ents, Entity* player){
         int y, x;
         int RADIUS = 12;
 
@@ -48,6 +57,10 @@ namespace fov{
                     map->tiles[y][x].visible = false;
                 }
             }
+        }
+
+        for(Entity* ent: *ents){
+            ent->visible = false;
         }
     }
 

@@ -5,10 +5,9 @@
 #include <constants.h>
 #include <Entity.h>
 
-void Player::initPlayer(int y, int x){
+void Player::initPlayer(){
     ch = '@';
     color = COLOR_PAIR(PLAYER_COLOR);
-    //pos.y = y;
-    //pos.x = x;
+    visible = true;
 }
 

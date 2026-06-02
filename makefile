@@ -1,4 +1,4 @@
-CXX = ccache g++
+CXX = g++
 
 CFLAGS = -g -Ilib -Iinclude -Wall -Wextra -std=c++20
 

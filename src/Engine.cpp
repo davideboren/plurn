@@ -100,7 +100,9 @@ void Engine::render(){
 
     // Render entities
     for(Entity* ent : world.ents){
-        mvwaddch(w_world, ent->pos.y, ent->pos.x, ent->ch | ent->color);
+        if(ent->visible){
+            mvwaddch(w_world, ent->pos.y, ent->pos.x, ent->ch | ent->color);
+        }
     }
 
     // Render info

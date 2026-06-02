@@ -1,13 +1,15 @@
 #pragma once
 
+#include <vector>
+
 #include <structs.h>
 #include <Entity.h>
 #include <Map.h>
 
 namespace fov{
     //FOV
-    void makeFOV(Map* map, Entity* player);
-    void clearFOV(Map* map, Entity* player);
+    void makeFOV(Map* map, std::vector<Entity*> *ents, Entity* player);
+    void clearFOV(Map* map, std::vector<Entity*> *ents, Entity* player);
     bool lineOfSight(Map* map, Position origin, Position target);
 
     // Helpers
