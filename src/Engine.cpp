@@ -64,6 +64,7 @@ void Engine::gameLoop(){
 
     while((ch = getch())){
         if(ch == 'q'){
+            world.clearEntities();
             break;
         }
         handleInput(ch);

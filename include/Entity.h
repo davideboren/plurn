@@ -6,6 +6,7 @@
 class Entity {
 
     public:
+        virtual ~Entity() = default;
         Position pos;
         bool visible;
         int ch;

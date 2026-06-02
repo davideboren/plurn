@@ -12,6 +12,7 @@
 class World {
     public:
         void initEntities();
+        void clearEntities();
 
         void handleInput(int input);
         void update();

@@ -28,7 +28,14 @@ void World::initEntities(){
             }
         }
     }
- 
+}
+
+void World::clearEntities(){
+    for(Entity* ent : ents){
+        if(ent != &player){
+            delete ent;
+        }
+    }
 }
 
 void World::handleInput(int input){
