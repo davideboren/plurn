@@ -8,7 +8,7 @@
 #include <fov.h>
 #include <rng.h>
 
-#include <Entity.h>
+#include <Actor.h>
 #include <Monster.h>
 #include <Logger.h>
 
@@ -19,6 +19,9 @@ void World::initEntities(){
 
     for(int y = 0; y < MAP_HEIGHT; y++){
         for(int x = 0; x < MAP_WIDTH; x++){
+            if(fov::lineOfSight(&map, player.pos, {y, x})){
+                continue;
+            }
             if(map.charAt(y, x) == '.' && !rng::rand(0,63)){
                 Monster* goblin = new Monster;
                 goblin->pos = {y, x};
@@ -31,7 +34,7 @@ void World::initEntities(){
 }
 
 void World::clearEntities(){
-    for(Entity* ent : ents){
+    for(Actor* ent : ents){
         if(ent != &player){
             delete ent;
         }
@@ -61,7 +64,7 @@ void World::update(){
     fov::makeFOV(&map, &ents, &player);
 }
 
-void World::tryMove(Entity* ent, Position delta){
+void World::tryMove(Actor* ent, Position delta){
     fov::clearFOV(&map, &ents, &player);
     Position new_pos = {ent->pos.y + delta.y, ent->pos.x + delta.x};
 
@@ -80,7 +83,7 @@ bool World::walkable(Position pos){
         return true;
     }
 
-    for(Entity* ent : ents){
+    for(Actor* ent : ents){
         if(ent->pos == pos){
             return false;
         }

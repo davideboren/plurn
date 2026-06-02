@@ -4,7 +4,7 @@
 #include <vector>
 
 #include <structs.h>
-#include <Entity.h>
+#include <Actor.h>
 #include <Log.h>
 #include <Map.h>
 #include <Player.h>
@@ -16,13 +16,13 @@ class World {
 
         void handleInput(int input);
         void update();
-        void tryMove(Entity* ent, Position delta);
+        void tryMove(Actor* ent, Position delta);
         bool walkable(Position pos);
 
         Map map;
         Log log;
         Player player;
-        std::vector<Entity*> ents;
+        std::vector<Actor*> ents;
 
         static const bool noclip = false;
 };

@@ -35,4 +35,12 @@ struct Tile {
     bool seen;
 };
 
+struct Action {
+    enum Type{
+        Move
+    };
+
+    Type type;
+};
+
 #endif

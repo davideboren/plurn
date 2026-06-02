@@ -3,7 +3,7 @@
 #include <ncurses.h>
 
 #include <constants.h>
-#include <Entity.h>
+#include <Actor.h>
 
 void Player::initPlayer(){
     ch = '@';

@@ -4,15 +4,16 @@
 #include <vector>
 
 #include <structs.h>
-#include <Entity.h>
+#include <Actor.h>
 
 
 namespace fov{
 
-    void makeFOV(Map* map, std::vector<Entity*> *ents, Entity* player){
+    void makeFOV(Map* map, std::vector<Actor*> *ents, Actor* player){
         int y, x, distance;
 
         int RADIUS = 12;
+        int terrain_radius = RADIUS;
         Position target;
 
         map->tiles[player->pos.y][player->pos.x].visible = true;
@@ -24,9 +25,10 @@ namespace fov{
                 target.x = x;
                 distance = getDistance(player->pos, target);
 
-                int terrain_radius = RADIUS;
                 if(isInMap(y, x) && map->tiles[y][x].ch == '#'){
                     terrain_radius = 2;
+                } else {
+                    terrain_radius = 12;
                 }
 
                 if(distance < terrain_radius){
@@ -40,14 +42,15 @@ namespace fov{
         }
 
         player->visible = true;
-        for(Entity* ent : *ents){
-            if(lineOfSight(map, player->pos, ent->pos)){
+        for(Actor* ent : *ents){
+            if(lineOfSight(map, player->pos, ent->pos)
+                && getDistance(player->pos, ent->pos) < terrain_radius){
                 ent->visible = true;
             }
         }
     }
  
-    void clearFOV(Map* map, std::vector<Entity*> *ents, Entity* player){
+    void clearFOV(Map* map, std::vector<Actor*> *ents, Actor* player){
         int y, x;
         int RADIUS = 12;
 
@@ -59,7 +62,7 @@ namespace fov{
             }
         }
 
-        for(Entity* ent: *ents){
+        for(Actor* ent: *ents){
             ent->visible = false;
         }
     }

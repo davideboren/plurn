@@ -3,13 +3,13 @@
 #include <vector>
 
 #include <structs.h>
-#include <Entity.h>
+#include <Actor.h>
 #include <Map.h>
 
 namespace fov{
     //FOV
-    void makeFOV(Map* map, std::vector<Entity*> *ents, Entity* player);
-    void clearFOV(Map* map, std::vector<Entity*> *ents, Entity* player);
+    void makeFOV(Map* map, std::vector<Actor*> *ents, Actor* player);
+    void clearFOV(Map* map, std::vector<Actor*> *ents, Actor* player);
     bool lineOfSight(Map* map, Position origin, Position target);
 
     // Helpers

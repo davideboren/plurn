@@ -1,9 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <Entity.h>
+#include <Actor.h>
 
-class Player : public Entity{
+class Player : public Actor{
     public:
         void initPlayer();
 };

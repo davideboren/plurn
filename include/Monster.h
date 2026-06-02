@@ -1,11 +1,14 @@
-#include <Entity.h>
+#include <Actor.h>
 #include <string>
 
-class Monster : public Entity {
+class Monster : public Actor {
     
     public:
         std::string name;
-        Position randomMove(); 
         int hp;
         bool hostile;
+
+        Position randomMove();
+        void update();
+
 };

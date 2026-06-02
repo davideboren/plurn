@@ -81,7 +81,7 @@ Position Map::createRoomsRandom(){
 
 Position Map::createRoomsSimple(){
     int sector_rows = 3;
-    int sector_cols = 3;
+    int sector_cols = 4;
     int num_sectors = sector_rows * sector_cols;
 
     Position centers[num_sectors];
@@ -89,8 +89,8 @@ Position Map::createRoomsSimple(){
 
     for(int y = 0; y < sector_rows; y++){
         for(int x = 0; x < sector_cols; x++){
-            int sector_height = MAP_HEIGHT / 3;
-            int sector_width = MAP_WIDTH / 3;
+            int sector_height = MAP_HEIGHT / sector_rows;
+            int sector_width = MAP_WIDTH / sector_cols;
 
             int room_height = rng::rand(3, sector_height - 4);
             int room_width = rng::rand(3, sector_width - 2);

@@ -3,16 +3,16 @@
 
 #include <structs.h>
 
-class Entity {
+class Actor {
 
     public:
-        virtual ~Entity() = default;
+        virtual ~Actor() = default;
         Position pos;
         bool visible;
         int ch;
         int color;
 
-        void update();
+        virtual void update();
 };
 
 #endif

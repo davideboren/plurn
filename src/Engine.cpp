@@ -49,12 +49,13 @@ void Engine::initPanels(){
     w_world = newwin(MAP_HEIGHT, MAP_WIDTH, y_pad, x_pad);
     w_info = newwin(1, SCREEN_WIDTH, y_pad + MAP_HEIGHT, x_pad);
 
-    //MapBuilder mb;
-    //Map m = mb.buildMapFromJSONFile("data/map1.json");
-    //world.map = m;
+    MapBuilder mb;
+    Map m = mb.buildMapFromJSONFile("data/map1.json");
+    world.map = m;
+    world.player.pos = {5, 68};
     //world.map.createRoomsBSP(MAP_HEIGHT - 2, MAP_WIDTH - 2, {1,1});
     //world.player.pos = world.map.createRoomsRandom();
-    world.player.pos = world.map.createRoomsSimple();
+    //world.player.pos = world.map.createRoomsSimple();
 
     world.initEntities();
 }
@@ -100,7 +101,7 @@ void Engine::render(){
     }
 
     // Render entities
-    for(Entity* ent : world.ents){
+    for(Actor* ent : world.ents){
         if(ent->visible){
             mvwaddch(w_world, ent->pos.y, ent->pos.x, ent->ch | ent->color);
         }
