@@ -9,7 +9,7 @@
 
 namespace fov{
 
-    void makeFOV(Map* map, std::vector<Actor*> *ents, Actor* player){
+    void makeFOV(Map* map, std::vector<Actor*> *actors, Actor* player){
         int y, x, distance;
 
         int RADIUS = 12;
@@ -42,15 +42,15 @@ namespace fov{
         }
 
         player->visible = true;
-        for(Actor* ent : *ents){
-            if(lineOfSight(map, player->pos, ent->pos)
-                && getDistance(player->pos, ent->pos) < terrain_radius){
-                ent->visible = true;
+        for(Actor* actor : *actors){
+            if(lineOfSight(map, player->pos, actor->pos)
+                && getDistance(player->pos, actor->pos) < terrain_radius){
+                actor->visible = true;
             }
         }
     }
  
-    void clearFOV(Map* map, std::vector<Actor*> *ents, Actor* player){
+    void clearFOV(Map* map, std::vector<Actor*> *actors, Actor* player){
         int y, x;
         int RADIUS = 12;
 
@@ -62,8 +62,8 @@ namespace fov{
             }
         }
 
-        for(Actor* ent: *ents){
-            ent->visible = false;
+        for(Actor* actor: *actors){
+            actor->visible = false;
         }
     }
 

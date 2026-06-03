@@ -8,8 +8,8 @@
 
 namespace fov{
     //FOV
-    void makeFOV(Map* map, std::vector<Actor*> *ents, Actor* player);
-    void clearFOV(Map* map, std::vector<Actor*> *ents, Actor* player);
+    void makeFOV(Map* map, std::vector<Actor*> *actors, Actor* player);
+    void clearFOV(Map* map, std::vector<Actor*> *actors, Actor* player);
     bool lineOfSight(Map* map, Position origin, Position target);
 
     // Helpers

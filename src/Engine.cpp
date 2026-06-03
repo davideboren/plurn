@@ -100,10 +100,10 @@ void Engine::render(){
         }
     }
 
-    // Render entities
-    for(Actor* ent : world.ents){
-        if(ent->visible){
-            mvwaddch(w_world, ent->pos.y, ent->pos.x, ent->ch | ent->color);
+    // Render actors
+    for(Actor* actor : world.actors){
+        if(actor->visible){
+            mvwaddch(w_world, actor->pos.y, actor->pos.x, actor->ch | actor->color);
         }
     }
 

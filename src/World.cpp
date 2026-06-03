@@ -9,12 +9,12 @@
 #include <rng.h>
 
 #include <Actor.h>
-#include <Monster.h>
+#include <Action.h>
 #include <Logger.h>
 
 void World::initEntities(){
     player.initPlayer();
-    ents.push_back(&player);
+    actors.push_back(&player);
 
 
     for(int y = 0; y < MAP_HEIGHT; y++){
@@ -22,21 +22,21 @@ void World::initEntities(){
             if(fov::lineOfSight(&map, player.pos, {y, x})){
                 continue;
             }
-            if(map.charAt(y, x) == '.' && !rng::rand(0,63)){
-                Monster* goblin = new Monster;
+            if(map.charAt(y, x) == '.' && !rng::rand(0,31)){
+                Actor* goblin = new Actor;
                 goblin->pos = {y, x};
                 goblin->ch = 'g';
                 goblin->color = COLOR_PAIR(MONSTER_COLOR);
-                ents.push_back(goblin);
+                actors.push_back(goblin);
             }
         }
     }
 }
 
 void World::clearEntities(){
-    for(Actor* ent : ents){
-        if(ent != &player){
-            delete ent;
+    for(Actor* actor : actors){
+        if(actor != &player){
+            delete actor;
         }
     }
 }
@@ -44,15 +44,19 @@ void World::clearEntities(){
 void World::handleInput(int input){
     switch(input){
     case 'h':
+        fov::clearFOV(&map, &actors, &player);
         tryMove(&player, {0, -1});
         break;
     case 'j':
+        fov::clearFOV(&map, &actors, &player);
         tryMove(&player, {1, 0});
         break;
     case 'k':
+        fov::clearFOV(&map, &actors, &player);
         tryMove(&player, {-1, 0});
         break;
     case 'l':
+        fov::clearFOV(&map, &actors, &player);
         tryMove(&player, {0, 1});
         break;
     default:
@@ -61,17 +65,27 @@ void World::handleInput(int input){
 }
 
 void World::update(){
-    fov::makeFOV(&map, &ents, &player);
+    fov::makeFOV(&map, &actors, &player);
+ 
+    for(Actor* actor : actors){
+        if(actor != &player){
+            tryAction(actor, actor->update());
+        }
+    }
 }
 
-void World::tryMove(Actor* ent, Position delta){
-    fov::clearFOV(&map, &ents, &player);
-    Position new_pos = {ent->pos.y + delta.y, ent->pos.x + delta.x};
+void World::tryAction(Actor* actor, Action action){
+    if(action.type == Action::MOVE){
+        tryMove(actor, {action.dy, action.dx});
+    }
+}
 
+void World::tryMove(Actor* actor, Position delta){
+    Position new_pos = {actor->pos.y + delta.y, actor->pos.x + delta.x};
     if(walkable(new_pos)){
-        ent->pos.y += delta.y;
-        ent->pos.x += delta.x;
-    } else {
+        actor->pos.y += delta.y;
+        actor->pos.x += delta.x;
+    } else if(actor == &player) {
         log.push("Can't walk through that.");
     }
 }
@@ -83,8 +97,8 @@ bool World::walkable(Position pos){
         return true;
     }
 
-    for(Actor* ent : ents){
-        if(ent->pos == pos){
+    for(Actor* actor : actors){
+        if(actor->pos == pos){
             return false;
         }
     }

@@ -5,6 +5,7 @@
 
 #include <structs.h>
 #include <Actor.h>
+#include <Action.h>
 #include <Log.h>
 #include <Map.h>
 #include <Player.h>
@@ -16,13 +17,14 @@ class World {
 
         void handleInput(int input);
         void update();
+        void tryAction(Actor* actor, Action action);
         void tryMove(Actor* ent, Position delta);
         bool walkable(Position pos);
 
         Map map;
         Log log;
         Player player;
-        std::vector<Actor*> ents;
+        std::vector<Actor*> actors;
 
         static const bool noclip = false;
 };
