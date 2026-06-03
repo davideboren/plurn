@@ -5,10 +5,22 @@
 #include <fmt/core.h>
 #include <rng.h>
 
-Action Actor::update(){
-    Action action(Action::MOVE);
-    action.dy = rng::rand(-1,1);
-    action.dx = rng::rand(-1,1);
+Actor::Actor(){
+}
 
-    return action;
+void Actor::update(){
+    cur_action.type = Action::MOVE;
+    cur_action.dy = rng::rand(-1,1);
+    cur_action.dx = rng::rand(-1,1);
+}
+
+Action Actor::getAction(){
+    Action out = cur_action;
+    cur_action = Action(Action::WAIT);
+
+    return out;
+}
+
+void Actor::setAction(Action action){
+    cur_action = action;
 }

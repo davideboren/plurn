@@ -43,35 +43,46 @@ void World::clearEntities(){
 
 void World::handleInput(int input){
     switch(input){
-    case 'h':
-        fov::clearFOV(&map, &actors, &player);
-        tryMove(&player, {0, -1});
-        break;
-    case 'j':
-        fov::clearFOV(&map, &actors, &player);
-        tryMove(&player, {1, 0});
-        break;
-    case 'k':
-        fov::clearFOV(&map, &actors, &player);
-        tryMove(&player, {-1, 0});
-        break;
-    case 'l':
-        fov::clearFOV(&map, &actors, &player);
-        tryMove(&player, {0, 1});
-        break;
-    default:
-        break;
+        case 'h':
+            player.setMove(0, -1);
+            break;
+        case 'j':
+            player.setMove(1, 0);
+            break;
+        case 'k':
+            player.setMove(-1, 0);
+            break;
+        case 'l':
+            player.setMove(0, 1);
+            break;
+        case 'b':
+            player.setMove(1, -1);
+            break;
+        case 'u':
+            player.setMove(-1, 1);
+            break;
+        case 'n':
+            player.setMove(1, 1);
+            break;
+        case 'y':
+            player.setMove(-1, -1);
+            break;
+        default:
+            break;
     }
 }
 
 void World::update(){
-    fov::makeFOV(&map, &actors, &player);
- 
+    fov::clearFOV(&map, &actors, &player);
+
     for(Actor* actor : actors){
         if(actor != &player){
-            tryAction(actor, actor->update());
+            actor->update();
         }
+        tryAction(actor, actor->getAction());
     }
+
+    fov::makeFOV(&map, &actors, &player);
 }
 
 void World::tryAction(Actor* actor, Action action){

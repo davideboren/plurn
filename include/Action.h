@@ -9,6 +9,7 @@ class Action {
             MOVE
         };
 
+        Action() : type(Action::WAIT){};
         Action(Type t) : type(t){};
         Type type;
 

@@ -7,12 +7,19 @@
 class Actor {
 
     public:
+        Actor();
         Position pos;
         bool visible;
         int ch;
         int color;
 
-        Action update();
+        int hp;
+
+        Action cur_action;
+
+        void update();
+        Action getAction();
+        void setAction(Action action);
 };
 
 #endif

@@ -6,6 +6,7 @@
 class Player : public Actor{
     public:
         void initPlayer();
+        void setMove(int dy, int dx);
 };
 
 #endif
