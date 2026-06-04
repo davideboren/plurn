@@ -6,7 +6,8 @@ class Action {
     public:
         enum Type {
             WAIT,
-            MOVE
+            MOVE,
+            ATTACK
         };
 
         Action() : type(Action::WAIT){};

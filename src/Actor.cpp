@@ -5,11 +5,23 @@
 #include <fmt/core.h>
 #include <rng.h>
 
+Actor::Actor(){
+    name = "a creature";
+    stats.max_hp = 1;
+    stats.cur_hp = 1;
+    stats.atk = 1;
+    alive = true;
+    blocks = true;
+    target = nullptr;
+}
+
 void Actor::update(){
     if(stats.cur_hp <= 0){
         die();
     } else if(alive){
-        if(!rng::rand(0,2)){
+        if(target){
+            cur_action.type = Action::ATTACK;
+        } else if(!rng::rand(0,2)){
             cur_action.type = Action::MOVE;
             cur_action.dy = rng::rand(-1,1);
             cur_action.dx = rng::rand(-1,1);

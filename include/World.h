@@ -22,6 +22,7 @@ class World {
         Actor* actorAt(Position pos);
         bool walkable(Position pos);
         void interact(Actor* src_actor, Actor* dest_actor);
+        void attack(Actor* src_actor, Actor* dest_actor);
 
         Map map;
         Feed feed;

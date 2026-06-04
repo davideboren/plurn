@@ -90,8 +90,16 @@ void World::update(){
 }
 
 void World::tryAction(Actor* actor, Action action){
-    if(action.type == Action::MOVE){
-        tryMove(actor, {action.dy, action.dx});
+    switch(action.type){
+        case Action::WAIT:
+            break;
+        case Action::MOVE:
+            tryMove(actor, {action.dy, action.dx});
+            break;
+        case Action::ATTACK:
+           if(actor->target && fov::getDistance(actor->pos, actor->target->pos) <= 1){
+               attack(actor, actor->target);
+           }
     }
 }
 
@@ -105,7 +113,7 @@ void World::tryMove(Actor* actor, Position delta){
     else if(walkable(new_pos)){
         actor->pos.y += delta.y;
         actor->pos.x += delta.x;
-    } else {
+    } else if(actor == &player){
         feed.push("Can't walk through that.");
     }
 
@@ -138,11 +146,22 @@ bool World::walkable(Position pos){
 
 void World::interact(Actor* src_actor, Actor* dest_actor){
     if(src_actor == &player){
+        attack(src_actor, dest_actor);
+    }
+}
+
+void World::attack(Actor* src_actor, Actor* dest_actor){
+    if(src_actor == &player){
         feed.push(fmt::format("You pound the {} with your fist.", dest_actor->name));
-        dest_actor->stats.cur_hp -= rng::rand(1, src_actor->stats.atk);
-        if(dest_actor->stats.cur_hp <= 0){
-            feed.push(fmt::format("You killed {}.", dest_actor->name));
-        }
+    } else {
+        feed.push(fmt::format("{} attacks {}!", src_actor->name, dest_actor->name));
+    }
+    dest_actor->target = src_actor;
+    dest_actor->stats.cur_hp -= rng::rand(1, src_actor->stats.atk);
+    if(dest_actor->stats.cur_hp <= 0){
+        feed.push(fmt::format("{} killed {}.", src_actor->name, dest_actor->name));
+        dest_actor->die();
+        src_actor->target = nullptr;
     }
 }
 

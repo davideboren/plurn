@@ -17,8 +17,10 @@ void Player::initPlayer(){
 }
 
 void Player::setMove(int dy, int dx){
-    cur_action.type = Action::MOVE;
-    cur_action.dy = dy;
-    cur_action.dx = dx;
+    if(alive){
+        cur_action.type = Action::MOVE;
+        cur_action.dy = dy;
+        cur_action.dx = dx;
+    }
 }
 

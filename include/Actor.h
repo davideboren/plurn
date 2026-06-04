@@ -12,7 +12,6 @@ class Actor {
             int max_hp;
             int cur_hp;
             int atk;
-            int ac;
         };
 
         std::string name;
@@ -24,9 +23,11 @@ class Actor {
         int ch;
         int color;
 
+        Actor* target;
+
         Action cur_action;
 
-        Actor() : name("a creature"),alive(true),blocks(true){};
+        Actor();
         void update();
         Action getAction();
         void setAction(Action action);
