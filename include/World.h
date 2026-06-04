@@ -6,7 +6,7 @@
 #include <structs.h>
 #include <Actor.h>
 #include <Action.h>
-#include <Log.h>
+#include <Feed.h>
 #include <Map.h>
 #include <Player.h>
 
@@ -24,7 +24,7 @@ class World {
         void interact(Actor* src_actor, Actor* dest_actor);
 
         Map map;
-        Log log;
+        Feed feed;
         Player player;
         std::vector<Actor*> actors;
 

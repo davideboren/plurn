@@ -108,7 +108,7 @@ void Engine::render(){
     }
 
     // Render info
-    std::string msg = world.log.pop();
+    std::string msg = world.feed.pop();
     mvwprintw(w_info, 0, 0, msg.c_str());
 
     wrefresh(w_world); 

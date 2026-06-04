@@ -7,10 +7,13 @@
 #include <Action.h>
 
 void Player::initPlayer(){
-    //name = "Hero";
+    name = "Hero";
     ch = '@';
     color = COLOR_PAIR(PLAYER_COLOR);
     visible = true;
+    stats.atk = 2;
+    stats.cur_hp = 9;
+    stats.max_hp = 9;
 }
 
 void Player::setMove(int dy, int dx){

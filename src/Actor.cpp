@@ -5,13 +5,18 @@
 #include <fmt/core.h>
 #include <rng.h>
 
-Actor::Actor(){
-}
-
 void Actor::update(){
-    cur_action.type = Action::MOVE;
-    cur_action.dy = rng::rand(-1,1);
-    cur_action.dx = rng::rand(-1,1);
+    if(stats.cur_hp <= 0){
+        die();
+    } else if(alive){
+        if(!rng::rand(0,2)){
+            cur_action.type = Action::MOVE;
+            cur_action.dy = rng::rand(-1,1);
+            cur_action.dx = rng::rand(-1,1);
+        } else {
+            cur_action.type = Action::WAIT;
+        }
+    }
 }
 
 Action Actor::getAction(){
@@ -23,4 +28,10 @@ Action Actor::getAction(){
 
 void Actor::setAction(Action action){
     cur_action = action;
+}
+
+void Actor::die(){
+    alive = false;
+    ch = '%';
+    blocks = false;
 }

@@ -2,6 +2,7 @@
 
 #include <ncurses.h>
 #include <random>
+#include <fmt/core.h>
 
 #include <structs.h>
 #include <constants.h>
@@ -23,9 +24,12 @@ void World::initEntities(){
                 continue;
             }
             if(map.charAt(y, x) == '.' && !rng::rand(0,31)){
-                Actor* monster = new Actor;
+                Actor* monster = new Actor();
+                monster->name = "slimoid";
                 monster->pos = {y, x};
                 monster->ch = 's';
+                monster->stats.max_hp = 3;
+                monster->stats.cur_hp = 3;
                 monster->color = COLOR_PAIR(MONSTER_COLOR);
                 actors.push_back(monster);
             }
@@ -93,17 +97,18 @@ void World::tryAction(Actor* actor, Action action){
 
 void World::tryMove(Actor* actor, Position delta){
     Position new_pos = {actor->pos.y + delta.y, actor->pos.x + delta.x};
-    if(walkable(new_pos)){
+
+    Actor* obstacle = actorAt(new_pos);
+    if(obstacle && obstacle->blocks){
+        interact(actor, obstacle);
+    }
+    else if(walkable(new_pos)){
         actor->pos.y += delta.y;
         actor->pos.x += delta.x;
     } else {
-        Actor* obstacle = actorAt(new_pos);
-        if(obstacle){
-            interact(actor, obstacle);
-        } else if(actor == &player){
-            log.push("Can't walk through that.");
-        }
+        feed.push("Can't walk through that.");
     }
+
 }
 
 Actor* World::actorAt(Position pos){
@@ -121,10 +126,9 @@ bool World::walkable(Position pos){
     } else if(noclip){
         return true;
     }
-    for(Actor* actor : actors){
-        if(actor->pos == pos){
-            return false;
-        }
+    Actor* act = actorAt(pos);
+    if(act && act->blocks){
+        return false;
     }
     if(map.tiles[pos.y][pos.x].walkable){
         return true;
@@ -134,6 +138,11 @@ bool World::walkable(Position pos){
 
 void World::interact(Actor* src_actor, Actor* dest_actor){
     if(src_actor == &player){
-        log.push("Bumped into somebody.");
+        feed.push(fmt::format("You pound the {} with your fist.", dest_actor->name));
+        dest_actor->stats.cur_hp -= rng::rand(1, src_actor->stats.atk);
+        if(dest_actor->stats.cur_hp <= 0){
+            feed.push(fmt::format("You killed {}.", dest_actor->name));
+        }
     }
 }
+

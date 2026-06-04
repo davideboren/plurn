@@ -35,4 +35,5 @@ struct Tile {
     bool seen;
 };
 
+
 #endif
