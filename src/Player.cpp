@@ -7,6 +7,7 @@
 #include <Action.h>
 
 void Player::initPlayer(){
+    //name = "Hero";
     ch = '@';
     color = COLOR_PAIR(PLAYER_COLOR);
     visible = true;

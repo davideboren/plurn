@@ -23,11 +23,11 @@ void World::initEntities(){
                 continue;
             }
             if(map.charAt(y, x) == '.' && !rng::rand(0,31)){
-                Actor* goblin = new Actor;
-                goblin->pos = {y, x};
-                goblin->ch = 'g';
-                goblin->color = COLOR_PAIR(MONSTER_COLOR);
-                actors.push_back(goblin);
+                Actor* monster = new Actor;
+                monster->pos = {y, x};
+                monster->ch = 's';
+                monster->color = COLOR_PAIR(MONSTER_COLOR);
+                actors.push_back(monster);
             }
         }
     }
@@ -96,9 +96,23 @@ void World::tryMove(Actor* actor, Position delta){
     if(walkable(new_pos)){
         actor->pos.y += delta.y;
         actor->pos.x += delta.x;
-    } else if(actor == &player) {
-        log.push("Can't walk through that.");
+    } else {
+        Actor* obstacle = actorAt(new_pos);
+        if(obstacle){
+            interact(actor, obstacle);
+        } else if(actor == &player){
+            log.push("Can't walk through that.");
+        }
     }
+}
+
+Actor* World::actorAt(Position pos){
+    for(Actor* actor : actors){
+        if(actor->pos == pos){
+            return actor;
+        }
+    }
+    return nullptr;
 }
 
 bool World::walkable(Position pos){
@@ -107,7 +121,6 @@ bool World::walkable(Position pos){
     } else if(noclip){
         return true;
     }
-
     for(Actor* actor : actors){
         if(actor->pos == pos){
             return false;
@@ -116,6 +129,11 @@ bool World::walkable(Position pos){
     if(map.tiles[pos.y][pos.x].walkable){
         return true;
     }
-
     return false;
+}
+
+void World::interact(Actor* src_actor, Actor* dest_actor){
+    if(src_actor == &player){
+        log.push("Bumped into somebody.");
+    }
 }
