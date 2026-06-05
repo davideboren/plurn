@@ -1,21 +1,17 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <Action.h>
-#include <structs.h>
+#include <plurn.h>
 
-#include <string>
 class Actor {
 
     public:
-        struct stats {
-            int max_hp;
-            int cur_hp;
-            int atk;
-        };
+
+        //Components
+        Destructible* destructible;
+        Attacker* attacker;
 
         std::string name;
-        Actor::stats stats;
         Position pos;
         bool alive;
         bool visible;
@@ -28,10 +24,9 @@ class Actor {
         Action cur_action;
 
         Actor();
-        void update();
+        virtual void update();
         Action getAction();
         void setAction(Action action);
-        void die();
 };
 
 #endif

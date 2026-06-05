@@ -7,18 +7,16 @@
 
 Actor::Actor(){
     name = "a creature";
-    stats.max_hp = 1;
-    stats.cur_hp = 1;
-    stats.atk = 1;
     alive = true;
     blocks = true;
     target = nullptr;
+
+    destructible = nullptr;
+    attacker = nullptr;
 }
 
 void Actor::update(){
-    if(stats.cur_hp <= 0){
-        die();
-    } else if(alive){
+    if(alive){
         if(target){
             cur_action.type = Action::ATTACK;
         } else if(!rng::rand(0,2)){
@@ -40,10 +38,4 @@ Action Actor::getAction(){
 
 void Actor::setAction(Action action){
     cur_action = action;
-}
-
-void Actor::die(){
-    alive = false;
-    ch = '%';
-    blocks = false;
 }

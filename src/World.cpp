@@ -28,9 +28,9 @@ void World::initEntities(){
                 monster->name = "slimoid";
                 monster->pos = {y, x};
                 monster->ch = 's';
-                monster->stats.max_hp = 3;
-                monster->stats.cur_hp = 3;
                 monster->color = COLOR_PAIR(MONSTER_COLOR);
+                monster->destructible = new Destructible(3, 3, "dead slimoid");
+                monster->attacker = new Attacker(1);
                 actors.push_back(monster);
             }
         }
@@ -80,9 +80,7 @@ void World::update(){
     fov::clearFOV(&map, &actors, &player);
 
     for(Actor* actor : actors){
-        if(actor != &player){
-            actor->update();
-        }
+        actor->update();
         tryAction(actor, actor->getAction());
     }
 
@@ -157,11 +155,8 @@ void World::attack(Actor* src_actor, Actor* dest_actor){
         feed.push(fmt::format("{} attacks {}!", src_actor->name, dest_actor->name));
     }
     dest_actor->target = src_actor;
-    dest_actor->stats.cur_hp -= rng::rand(1, src_actor->stats.atk);
-    if(dest_actor->stats.cur_hp <= 0){
-        feed.push(fmt::format("{} killed {}.", src_actor->name, dest_actor->name));
-        dest_actor->die();
-        src_actor->target = nullptr;
+    if(dest_actor->destructible){
+        //dest_actor->destructible->takeDamage(dest_actor, rng::rand(1, src_actor->stats.atk));
     }
 }
 
