@@ -19,11 +19,6 @@ class World {
         void handleInput(int input);
         void update();
         void tryAction(Actor* actor, Action action);
-        void tryMove(Actor* ent, Position delta);
-        Actor* actorAt(Position pos);
-        bool walkable(Position pos);
-        void interact(Actor* src_actor, Actor* dest_actor);
-        void attack(Actor* src_actor, Actor* dest_actor);
 
         Map map;
         Feed feed;
