@@ -6,6 +6,9 @@
 #include <Actor.h>
 #include <Action.h>
 
+
+//#include <plurn.h>
+
 void Player::initPlayer(){
     name = "Hero";
     ch = '@';
@@ -20,7 +23,7 @@ void Player::update(){
 }
 
 void Player::setMove(int dy, int dx){
-    if(alive){
+    if(!destructible->isDead()){
         cur_action.type = Action::MOVE;
         cur_action.dy = dy;
         cur_action.dx = dx;

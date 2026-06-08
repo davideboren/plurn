@@ -1,6 +1,7 @@
 #ifndef PLURN_H
 #define PLURN_H
 
+#include <ncurses.h>
 #include <string>
 #include <vector>
 

@@ -13,7 +13,6 @@ class Actor {
 
         std::string name;
         Position pos;
-        bool alive;
         bool visible;
         bool blocks;
         int ch;
@@ -22,12 +21,19 @@ class Actor {
         Map* map;
         std::vector<Actor*>* actors;
 
-        Actor* target;
-
         Action cur_action;
 
-        Actor();
+        Actor() :
+            destructible(nullptr),
+            attacker(nullptr),
+            name("a creature"),
+            blocks(true){};
+
         Actor(Map* map, std::vector<Actor*>* actors) :
+            destructible(nullptr),
+            attacker(nullptr),
+            name("a creature"),
+            blocks(true),
             map(map), actors(actors){};
 
         virtual void update();

@@ -5,16 +5,6 @@
 #include <fmt/core.h>
 #include <rng.h>
 
-Actor::Actor(){
-    name = "a creature";
-    alive = true;
-    blocks = true;
-    target = nullptr;
-
-    destructible = nullptr;
-    attacker = nullptr;
-}
-
 void Actor::update(){
     if(!destructible->isDead()){
         if(attacker && attacker->target){
