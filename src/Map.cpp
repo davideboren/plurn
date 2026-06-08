@@ -51,6 +51,10 @@ Position Map::createRoomsBSP(int h, int w, Position pos){
             connectPoints(createRoomsBSP(h, w/2, new_pos_a), createRoomsBSP(h, w/2, new_pos_b));
         }
     }
+
+    Position outpos;
+    outpos.y = 0; outpos.x = 0;
+    return outpos;
 }
 
 Position Map::createRoomsRandom(){

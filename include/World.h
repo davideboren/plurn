@@ -9,6 +9,7 @@
 #include <Feed.h>
 #include <Map.h>
 #include <Player.h>
+#include <WorldWiz.h>
 
 class World {
     public:
@@ -28,6 +29,7 @@ class World {
         Feed feed;
         Player player;
         std::vector<Actor*> actors;
+        WorldWiz wiz = WorldWiz(&map, &actors);
 
         static const bool noclip = false;
 };

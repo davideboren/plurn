@@ -1,7 +1,19 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <plurn.h>
+#include <string>
+#include <vector>
+
+#include <structs.h>
+
+#include <Map.h>
+#include <Action.h>
+
+#include <Destructible.h>
+#include <Attacker.h>
+#include <Mover.h>
+
+#include <WorldWiz.h>
 
 class Actor {
 
@@ -10,6 +22,7 @@ class Actor {
         //Components
         Destructible* destructible;
         Attacker* attacker;
+        Mover* mover;
 
         std::string name;
         Position pos;
@@ -18,6 +31,7 @@ class Actor {
         int ch;
         int color;
 
+        WorldWiz* wiz;
         Map* map;
         std::vector<Actor*>* actors;
 
@@ -26,12 +40,14 @@ class Actor {
         Actor() :
             destructible(nullptr),
             attacker(nullptr),
+            mover(nullptr),
             name("a creature"),
             blocks(true){};
 
         Actor(Map* map, std::vector<Actor*>* actors) :
             destructible(nullptr),
             attacker(nullptr),
+            mover(nullptr),
             name("a creature"),
             blocks(true),
             map(map), actors(actors){};

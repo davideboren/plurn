@@ -12,9 +12,10 @@
 #include <Actor.h>
 #include <Action.h>
 #include <Logger.h>
+#include <WorldWiz.h>
 
 void World::initEntities(){
-    player.initPlayer();
+    player.initPlayer(&wiz, &map, &actors);
     actors.push_back(&player);
 
 
@@ -24,7 +25,7 @@ void World::initEntities(){
                 continue;
             }
             if(map.charAt(y, x) == '.' && !rng::rand(0,15)){
-                Actor* monster = new Actor();
+                Actor* monster = new Actor(&map, &actors);
                 monster->name = "slimoid";
                 monster->pos = {y, x};
                 monster->ch = 's';

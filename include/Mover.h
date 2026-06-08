@@ -4,16 +4,17 @@
 #include <plurn.h>
 
 class Mover {
-    Map* map;
-    std::vector<Actor*>* actors;
+    public:
+        Map* map;
+        std::vector<Actor*>* actors;
 
-    int dy;
-    int dx;
+        int dy;
+        int dx;
 
-    Mover(Map* map, std::vector<Actor*>* actors) : 
-        map(map), actors(actors),
-        dy(0), dx(0){};
+        Mover(Map* map, std::vector<Actor*>* actors) : 
+            map(map), actors(actors),
+            dy(0), dx(0){};
 
-    void tryMove(Actor* owner);
+        void tryMove(Actor* owner);
 };
 #endif
