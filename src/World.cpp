@@ -20,10 +20,10 @@ void World::initEntities(){
 
     for(int y = 0; y < MAP_HEIGHT; y++){
         for(int x = 0; x < MAP_WIDTH; x++){
-            if(fov::lineOfSight(&map, player.pos, {y, x})){
+            if(y == player.pos.y && x == player.pos.x){
                 continue;
             }
-            if(map.charAt(y, x) == '.' && !rng::rand(0,31)){
+            if(map.charAt(y, x) == '.' && !rng::rand(0,15)){
                 Actor* monster = new Actor();
                 monster->name = "slimoid";
                 monster->pos = {y, x};
@@ -95,8 +95,9 @@ void World::tryAction(Actor* actor, Action action){
             tryMove(actor, {action.dy, action.dx});
             break;
         case Action::ATTACK:
-           if(actor->target && fov::getDistance(actor->pos, actor->target->pos) <= 1){
-               attack(actor, actor->target);
+           if(fov::getDistance(actor->pos, actor->attacker->target->pos) <= 1){
+               feed.push(fmt::format("{} attacks {}!", actor->name, actor->attacker->target->name));
+               actor->attacker->attack(actor, actor->attacker->target);
            }
     }
 }
@@ -106,7 +107,10 @@ void World::tryMove(Actor* actor, Position delta){
 
     Actor* obstacle = actorAt(new_pos);
     if(obstacle && obstacle->blocks){
-        interact(actor, obstacle);
+        if(actor->attacker && obstacle->destructible && actor->name != obstacle->name){
+            feed.push(fmt::format("{} attacks {}!", actor->name, obstacle->name));
+            actor->attacker->attack(actor, obstacle);
+        }
     }
     else if(walkable(new_pos)){
         actor->pos.y += delta.y;
@@ -140,23 +144,5 @@ bool World::walkable(Position pos){
         return true;
     }
     return false;
-}
-
-void World::interact(Actor* src_actor, Actor* dest_actor){
-    if(src_actor == &player){
-        attack(src_actor, dest_actor);
-    }
-}
-
-void World::attack(Actor* src_actor, Actor* dest_actor){
-    if(src_actor == &player){
-        feed.push(fmt::format("You pound the {} with your fist.", dest_actor->name));
-    } else {
-        feed.push(fmt::format("{} attacks {}!", src_actor->name, dest_actor->name));
-    }
-    dest_actor->target = src_actor;
-    if(dest_actor->destructible){
-        //dest_actor->destructible->takeDamage(dest_actor, rng::rand(1, src_actor->stats.atk));
-    }
 }
 

@@ -6,7 +6,9 @@
 class Attacker {
     public:
         int power;
-        Attacker(int power) : power(power){};
+        Actor* target;
+
+        Attacker(int power) : power(power), target(nullptr){};
 
         void attack(Actor* owner, Actor* target);
 };

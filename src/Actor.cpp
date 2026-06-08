@@ -16,8 +16,8 @@ Actor::Actor(){
 }
 
 void Actor::update(){
-    if(alive){
-        if(target){
+    if(!destructible->isDead()){
+        if(attacker && attacker->target){
             cur_action.type = Action::ATTACK;
         } else if(!rng::rand(0,2)){
             cur_action.type = Action::MOVE;
