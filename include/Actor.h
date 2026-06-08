@@ -32,8 +32,6 @@ class Actor {
         int color;
 
         WorldWiz* wiz;
-        Map* map;
-        std::vector<Actor*>* actors;
 
         Action cur_action;
 
@@ -44,14 +42,13 @@ class Actor {
             name("a creature"),
             blocks(true){};
 
-        Actor(WorldWiz* wwiz, Map* map, std::vector<Actor*>* actors) :
+        Actor(WorldWiz* wwiz) :
             destructible(nullptr),
             attacker(nullptr),
             mover(nullptr),
             name("a creature"),
             blocks(true),
-            wiz(wwiz),
-            map(map), actors(actors){};
+            wiz(wwiz){};
 
         virtual void update();
         Action getAction();

@@ -15,7 +15,7 @@
 #include <WorldWiz.h>
 
 void World::initEntities(){
-    player.initPlayer(&wiz, &map, &actors);
+    player.initPlayer(&wiz);
     actors.push_back(&player);
 
 
@@ -25,14 +25,14 @@ void World::initEntities(){
                 continue;
             }
             if(map.charAt(y, x) == '.' && !rng::rand(0,15)){
-                Actor* monster = new Actor(&wiz, &map, &actors);
+                Actor* monster = new Actor(&wiz);
                 monster->name = "slimoid";
                 monster->pos = {y, x};
                 monster->ch = 's';
                 monster->color = COLOR_PAIR(MONSTER_COLOR);
                 monster->destructible = new Destructible(3, 3, "dead slimoid");
                 monster->attacker = new Attacker(1);
-                monster->mover = new Mover(&map, &actors);
+                monster->mover = new Mover();
                 actors.push_back(monster);
             }
         }
@@ -94,10 +94,9 @@ void World::tryAction(Actor* actor, Action action){
         case Action::WAIT:
             break;
         case Action::MOVE:
-            tryMove(actor, {action.dy, action.dx});
-            /*if(actor->mover){
-                actor->mover->tryMove(actor, &wiz);
-            }*/
+            if(actor->mover){
+                actor->mover->tryMove(actor, &wiz, {action.dy, action.dx});
+            }
             break;
         case Action::ATTACK:
            if(fov::getDistance(actor->pos, actor->attacker->target->pos) <= 1){

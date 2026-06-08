@@ -8,7 +8,7 @@
 #include <Actor.h>
 #include <Action.h>
 
-void Player::initPlayer(WorldWiz* wwiz, Map* map, std::vector<Actor*>* actors){
+void Player::initPlayer(WorldWiz* wwiz){
     name = "Hero";
     ch = '@';
     color = COLOR_PAIR(PLAYER_COLOR);
@@ -17,7 +17,7 @@ void Player::initPlayer(WorldWiz* wwiz, Map* map, std::vector<Actor*>* actors){
 
     destructible = new Destructible(9, 9, "Dead guy");
     attacker = new Attacker(2);
-    mover = new Mover(map, actors);
+    mover = new Mover();
 }
 
 void Player::update(){

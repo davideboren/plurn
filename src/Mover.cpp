@@ -1,7 +1,7 @@
 #include <plurn.h>
 
-void Mover::tryMove(Actor* owner, WorldWiz* wiz){
-    Position new_pos = {owner->pos.y + dy, owner->pos.x + dx};
+void Mover::tryMove(Actor* owner, WorldWiz* wiz, Position pos){
+    Position new_pos = {owner->pos.y + pos.y, owner->pos.x + pos.x};
 
     Actor* obstacle = wiz->actorAt(new_pos);
 
@@ -10,7 +10,7 @@ void Mover::tryMove(Actor* owner, WorldWiz* wiz){
             owner->attacker->attack(owner, obstacle);
         }
     } else if(wiz->walkable(new_pos)){
-        owner->pos.y += dy;
-        owner->pos.x += dx;
+        owner->pos.y += pos.y;
+        owner->pos.x += pos.x;
     }
 }
