@@ -2,6 +2,7 @@
 #define MOVER_H
 
 #include <plurn.h>
+#include <WorldWiz.h>
 
 class Mover {
     public:
@@ -15,6 +16,6 @@ class Mover {
             map(map), actors(actors),
             dy(0), dx(0){};
 
-        void tryMove(Actor* owner);
+        void tryMove(Actor* owner, WorldWiz* wiz);
 };
 #endif

@@ -25,13 +25,14 @@ void World::initEntities(){
                 continue;
             }
             if(map.charAt(y, x) == '.' && !rng::rand(0,15)){
-                Actor* monster = new Actor(&map, &actors);
+                Actor* monster = new Actor(&wiz, &map, &actors);
                 monster->name = "slimoid";
                 monster->pos = {y, x};
                 monster->ch = 's';
                 monster->color = COLOR_PAIR(MONSTER_COLOR);
                 monster->destructible = new Destructible(3, 3, "dead slimoid");
                 monster->attacker = new Attacker(1);
+                monster->mover = new Mover(&map, &actors);
                 actors.push_back(monster);
             }
         }
@@ -94,6 +95,9 @@ void World::tryAction(Actor* actor, Action action){
             break;
         case Action::MOVE:
             tryMove(actor, {action.dy, action.dx});
+            /*if(actor->mover){
+                actor->mover->tryMove(actor, &wiz);
+            }*/
             break;
         case Action::ATTACK:
            if(fov::getDistance(actor->pos, actor->attacker->target->pos) <= 1){

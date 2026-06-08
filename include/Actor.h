@@ -44,12 +44,13 @@ class Actor {
             name("a creature"),
             blocks(true){};
 
-        Actor(Map* map, std::vector<Actor*>* actors) :
+        Actor(WorldWiz* wwiz, Map* map, std::vector<Actor*>* actors) :
             destructible(nullptr),
             attacker(nullptr),
             mover(nullptr),
             name("a creature"),
             blocks(true),
+            wiz(wwiz),
             map(map), actors(actors){};
 
         virtual void update();
