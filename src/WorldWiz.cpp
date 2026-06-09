@@ -1,5 +1,7 @@
 #include <WorldWiz.h>
 
+#include <string>
+
 #include <Actor.h>
 
 Actor* WorldWiz::actorAt(Position pos){

@@ -24,7 +24,7 @@ class World {
         Feed feed;
         Player player;
         std::vector<Actor*> actors;
-        WorldWiz wiz = WorldWiz(&map, &actors);
+        WorldWiz wiz = WorldWiz(&map, &actors, &feed);
 
         static const bool noclip = false;
 };

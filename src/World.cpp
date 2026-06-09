@@ -31,7 +31,7 @@ void World::initEntities(){
                 monster->ch = 's';
                 monster->color = COLOR_PAIR(MONSTER_COLOR);
                 monster->destructible = new Destructible(3, 3, "dead slimoid");
-                monster->attacker = new Attacker(1);
+                monster->attacker = new Attacker(&wiz, 1);
                 monster->mover = new Mover();
                 actors.push_back(monster);
             }
@@ -86,6 +86,8 @@ void World::update(){
         tryAction(actor, actor->getAction());
     }
 
+    feed.push_buffer();
+
     fov::makeFOV(&map, &actors, &player);
 }
 
@@ -100,7 +102,7 @@ void World::tryAction(Actor* actor, Action action){
             break;
         case Action::ATTACK:
            if(fov::getDistance(actor->pos, actor->attacker->target->pos) <= 1){
-               feed.push(fmt::format("{} attacks {}!", actor->name, actor->attacker->target->name));
+               //feed.push(fmt::format("{} attacks {}!", actor->name, actor->attacker->target->name));
                actor->attacker->attack(actor, actor->attacker->target);
            }
     }

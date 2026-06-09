@@ -2,10 +2,12 @@
 #define WORLDWIZ_H
 
 #include <vector>
+#include <string>
 
 #include <structs.h>
 
 #include <Map.h>
+#include <Feed.h>
 
 class Actor;
 
@@ -15,8 +17,10 @@ class WorldWiz {
         std::vector<Actor*>* actors;
 
     public:
-        WorldWiz(Map* map, std::vector<Actor*>* actors):
-            map(map), actors(actors){};
+        Feed* feed;
+
+        WorldWiz(Map* map, std::vector<Actor*>* actors, Feed* feed):
+            map(map), actors(actors), feed(feed){};
 
         Actor* actorAt(Position pos);
         bool walkable(Position pos);

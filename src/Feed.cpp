@@ -8,8 +8,8 @@ void Feed::push(std::string msg){
 }
 
 void Feed::append_buffer(std::string msg){
-    buffer.append(" ");
     buffer.append(msg);
+    buffer.append(" ");
 }
 
 void Feed::push_buffer(){
