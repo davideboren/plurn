@@ -33,6 +33,7 @@ void World::initEntities(){
                 monster->destructible = new Destructible(3, 3, "dead slimoid");
                 monster->attacker = new Attacker(&wiz, 1);
                 monster->mover = new Mover();
+                monster->ai = new MonsterAI(&wiz);
                 actors.push_back(monster);
             }
         }

@@ -16,7 +16,7 @@ class AI {
         AI(WorldWiz* wiz) : cur_action(Action::WAIT), wiz(wiz){};
 
         virtual void handleInput(Actor* owner, int input) = 0;
-        void update(Actor* owner);
+        virtual void update(Actor* owner) = 0;
         void tryAction(Actor* owner);
         void setMove(Actor* owner, int dy, int dx);
 };

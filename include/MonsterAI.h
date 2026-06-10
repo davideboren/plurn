@@ -1,12 +1,12 @@
-#ifndef PLAYERAI_H
-#define PLAYERAI_H
+#ifndef MONSTERAI_H
+#define MONSTERAI_H
 
 #include <AI.h>
 
-class PlayerAI : public AI {
-
+class MonsterAI : public AI{
     public:
         using AI::AI;
+
         void handleInput(Actor* owner, int input);
         void update(Actor* owner);
 };

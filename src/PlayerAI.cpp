@@ -32,3 +32,7 @@ void PlayerAI::handleInput(Actor* owner, int input){
         }
     }
 }
+
+void PlayerAI::update(Actor* owner){
+
+}
