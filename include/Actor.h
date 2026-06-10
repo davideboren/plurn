@@ -54,8 +54,6 @@ class Actor {
             name("a creature"),
             blocks(true),
             wiz(wwiz){};
-
-        virtual void update();
 };
 
 #endif

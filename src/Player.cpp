@@ -22,15 +22,3 @@ void Player::initPlayer(WorldWiz* wwiz){
     mover = new Mover();
     ai = new PlayerAI(wiz);
 }
-
-void Player::update(){
-}
-
-void Player::setMove(int dy, int dx){
-    if(!destructible->isDead()){
-        cur_action.type = Action::MOVE;
-        cur_action.dy = dy;
-        cur_action.dx = dx;
-    }
-}
-

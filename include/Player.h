@@ -6,8 +6,6 @@
 class Player : public Actor{
     public:
         void initPlayer(WorldWiz* wwiz);
-        void update();
-        void setMove(int dy, int dx);
 };
 
 #endif
