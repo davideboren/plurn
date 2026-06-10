@@ -18,5 +18,7 @@ void MonsterAI::update(Actor* owner){
         } else {
             cur_action.type = Action::WAIT;
         }
+    } else {
+        cur_action.type = Action::WAIT;
     }
 }

@@ -56,12 +56,8 @@ void World::update(){
     fov::clearFOV(&map, &actors, &player);
 
     for(Actor* actor : actors){
-        actor->update();
-        if(actor == &player){
-            player.ai->tryAction(&player);
-        } else {
-            tryAction(actor, actor->getAction());
-        }
+        actor->ai->update(actor);
+        actor->ai->tryAction(actor);
     }
 
     feed.push_buffer();

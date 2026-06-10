@@ -18,7 +18,6 @@ class World {
 
         void handleInput(int input);
         void update();
-        void tryAction(Actor* actor, Action action);
 
         Map map;
         Feed feed;
