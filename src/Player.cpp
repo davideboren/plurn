@@ -20,7 +20,7 @@ void Player::initPlayer(WorldWiz* wwiz){
     destructible = new Destructible(9, 9, "Dead guy");
     attacker = new Attacker(wiz, 2);
     mover = new Mover();
-    ai = new PlayerAI();
+    ai = new PlayerAI(wiz);
 }
 
 void Player::update(){

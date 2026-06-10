@@ -56,7 +56,11 @@ void World::update(){
 
     for(Actor* actor : actors){
         actor->update();
-        tryAction(actor, actor->getAction());
+        if(actor == &player){
+            player.ai->tryAction(&player);
+        } else {
+            tryAction(actor, actor->getAction());
+        }
     }
 
     feed.push_buffer();

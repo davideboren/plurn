@@ -6,6 +6,7 @@
 class PlayerAI : public AI {
 
     public:
+        using AI::AI;
         void handleInput(Actor* owner, int input);
 };
 
