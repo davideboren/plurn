@@ -20,6 +20,7 @@ bool Engine::initCurses(){
     initscr();
     noecho();
     curs_set(0);
+    keypad(stdscr, true);
 
     // Color
     if(has_colors()){
