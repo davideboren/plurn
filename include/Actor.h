@@ -56,8 +56,6 @@ class Actor {
             wiz(wwiz){};
 
         virtual void update();
-        Action getAction();
-        void setAction(Action action);
 };
 
 #endif
