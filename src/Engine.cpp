@@ -50,12 +50,16 @@ void Engine::initPanels(){
     if(y_pad >= 2 && x_pad >= 2){
         for(int y = y_pad; y < SCREEN_HEIGHT + y_pad; y++){
             mvaddch(y, x_pad - 1, '|');
-            mvaddch(y, x_pad + SCREEN_WIDTH + 2, '|');
+            mvaddch(y, x_pad + SCREEN_WIDTH, '|');
         }
-        for(int x = x_pad; x < SCREEN_WIDTH + x_pad + 2; x++){
+        for(int x = x_pad; x < SCREEN_WIDTH + x_pad; x++){
             mvaddch(y_pad - 1, x, '-');
             mvaddch(y_pad + SCREEN_HEIGHT, x, '-');
         }
+        mvaddch(y_pad - 1, x_pad - 1, 'x');
+        mvaddch(y_pad + SCREEN_HEIGHT, x_pad - 1, 'x');
+        mvaddch(y_pad + SCREEN_HEIGHT, x_pad + SCREEN_WIDTH, 'x');
+        mvaddch(y_pad - 1, x_pad + SCREEN_WIDTH, 'x');
     }
 
 
