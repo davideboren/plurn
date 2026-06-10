@@ -17,6 +17,7 @@ class Engine {
         void update();
         void render();
 
+        WINDOW* w_stats;
         WINDOW* w_world;
         WINDOW* w_info;
         World world;

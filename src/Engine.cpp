@@ -3,7 +3,7 @@
 #include <ncurses.h>
 #include <vector>
 #include <string>
-#include <fstream>
+#include <fmt/core.h>
 
 #include <constants.h>
 #include <Logger.h>
@@ -46,8 +46,22 @@ void Engine::initPanels(){
     int y_pad = (y - SCREEN_HEIGHT) / 2;
     int x_pad = (x - SCREEN_WIDTH) / 2;
 
-    w_world = newwin(MAP_HEIGHT, MAP_WIDTH, y_pad, x_pad);
-    w_info = newwin(1, SCREEN_WIDTH, y_pad + MAP_HEIGHT, x_pad);
+    // Border
+    if(y_pad >= 2 && x_pad >= 2){
+        for(int y = y_pad; y < SCREEN_HEIGHT + y_pad; y++){
+            mvaddch(y, x_pad - 1, '|');
+            mvaddch(y, x_pad + SCREEN_WIDTH + 2, '|');
+        }
+        for(int x = x_pad; x < SCREEN_WIDTH + x_pad + 2; x++){
+            mvaddch(y_pad - 1, x, '-');
+            mvaddch(y_pad + SCREEN_HEIGHT, x, '-');
+        }
+    }
+
+
+    w_stats = newwin(1, SCREEN_WIDTH, y_pad, x_pad);
+    w_world = newwin(MAP_HEIGHT, MAP_WIDTH, y_pad + 1, x_pad);
+    w_info = newwin(1, SCREEN_WIDTH, y_pad + 1 + MAP_HEIGHT, x_pad);
 
     MapBuilder mb;
     Map m = mb.buildMapFromJSONFile("data/map1.json");
@@ -84,8 +98,13 @@ void Engine::update(){
 }
 
 void Engine::render(){
+    werase(w_stats);
     werase(w_world);
     werase(w_info);
+
+    // Render stats
+    std::string stat_line = fmt::format("HP: [{}/{}]", world.player.destructible->hp, world.player.destructible->max_hp);
+    mvwprintw(w_stats, 0, 0, stat_line.c_str());
 
     // Render map
     for(int y = 0; y < MAP_HEIGHT; y++){
@@ -111,6 +130,7 @@ void Engine::render(){
     std::string msg = world.feed.pop();
     mvwprintw(w_info, 0, 0, msg.c_str());
 
+    wrefresh(w_stats);
     wrefresh(w_world); 
     wrefresh(w_info); 
 }

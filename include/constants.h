@@ -8,7 +8,7 @@
 
 const int SCREEN_HEIGHT = 25;
 const int SCREEN_WIDTH = 80;
-const int MAP_HEIGHT = 24;
+const int MAP_HEIGHT = 23;
 const int MAP_WIDTH = 80;
 
 #endif
