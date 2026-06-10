@@ -48,34 +48,7 @@ void World::clearEntities(){
 }
 
 void World::handleInput(int input){
-    switch(input){
-        case 'h':
-            player.setMove(0, -1);
-            break;
-        case 'j':
-            player.setMove(1, 0);
-            break;
-        case 'k':
-            player.setMove(-1, 0);
-            break;
-        case 'l':
-            player.setMove(0, 1);
-            break;
-        case 'b':
-            player.setMove(1, -1);
-            break;
-        case 'u':
-            player.setMove(-1, 1);
-            break;
-        case 'n':
-            player.setMove(1, 1);
-            break;
-        case 'y':
-            player.setMove(-1, -1);
-            break;
-        default:
-            break;
-    }
+    player.ai->handleInput(&player, input);
 }
 
 void World::update(){

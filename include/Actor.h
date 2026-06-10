@@ -12,6 +12,8 @@
 #include <Destructible.h>
 #include <Attacker.h>
 #include <Mover.h>
+class AI;
+#include <AI.h>
 
 #include <WorldWiz.h>
 
@@ -23,6 +25,7 @@ class Actor {
         Destructible* destructible;
         Attacker* attacker;
         Mover* mover;
+        AI* ai;
 
         std::string name;
         Position pos;
@@ -39,6 +42,7 @@ class Actor {
             destructible(nullptr),
             attacker(nullptr),
             mover(nullptr),
+            ai(nullptr),
             name("a creature"),
             blocks(true){};
 
@@ -46,6 +50,7 @@ class Actor {
             destructible(nullptr),
             attacker(nullptr),
             mover(nullptr),
+            ai(nullptr),
             name("a creature"),
             blocks(true),
             wiz(wwiz){};
