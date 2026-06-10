@@ -3,6 +3,7 @@
 void PlayerAI::handleInput(Actor* owner, int input){
     if(!owner->destructible->isDead()){
         switch(input){
+            // Movement
             case 'h':
                 setMove(owner, 0, -1); 
                 break;
@@ -26,6 +27,9 @@ void PlayerAI::handleInput(Actor* owner, int input){
                 break;
             case 'y':
                 setMove(owner, -1, -1); 
+                break;
+            case '.':
+                cur_action = Action::WAIT;
                 break;
             default:
                 break;
