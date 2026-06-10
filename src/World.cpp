@@ -14,6 +14,8 @@
 #include <Logger.h>
 #include <WorldWiz.h>
 
+#include <MonsterAI.h>
+
 void World::initEntities(){
     player.initPlayer(&wiz);
     actors.push_back(&player);
@@ -63,22 +65,5 @@ void World::update(){
     feed.push_buffer();
 
     fov::makeFOV(&map, &actors, &player);
-}
-
-void World::tryAction(Actor* actor, Action action){
-    switch(action.type){
-        case Action::WAIT:
-            break;
-        case Action::MOVE:
-            if(actor->mover){
-                actor->mover->tryMove(actor, &wiz, {action.dy, action.dx});
-            }
-            break;
-        case Action::ATTACK:
-           if(fov::getDistance(actor->pos, actor->attacker->target->pos) <= 1){
-               //feed.push(fmt::format("{} attacks {}!", actor->name, actor->attacker->target->name));
-               actor->attacker->attack(actor, actor->attacker->target);
-           }
-    }
 }
 

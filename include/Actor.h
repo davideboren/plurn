@@ -14,7 +14,6 @@
 #include <Mover.h>
 class AI;
 #include <AI.h>
-#include <MonsterAI.h>
 
 #include <WorldWiz.h>
 
