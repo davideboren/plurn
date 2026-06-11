@@ -2,6 +2,7 @@
 
 #include <ncurses.h>
 #include <fmt/core.h>
+#include <vector>
 
 #include <structs.h>
 #include <constants.h>
@@ -126,17 +127,24 @@ void Map::connectPoints(Position c1, Position c2){
     temp.x = c1.x;
 
     while(true){
+        std::vector<Position> options;
         if(abs((temp.x - 1) - c2.x) < abs(temp.x - c2.x)){
-            temp.x--;
-        } else if(abs((temp.x + 1) - c2.x) < abs(temp.x - c2.x)){
-            temp.x++;
-        } else if(abs((temp.y + 1) - c2.y) < abs(temp.y - c2.y)){
-            temp.y++;
-        } else if(abs((temp.y - 1) - c2.y) < abs(temp.y - c2.y)){
-            temp.y--;
-        } else{
+            options.push_back({temp.y, temp.x - 1});
+        }
+        if(abs((temp.x + 1) - c2.x) < abs(temp.x - c2.x)){
+            options.push_back({temp.y, temp.x + 1});
+        }
+        if(abs((temp.y + 1) - c2.y) < abs(temp.y - c2.y)){
+            options.push_back({temp.y + 1, temp.x});
+        }
+        if(abs((temp.y - 1) - c2.y) < abs(temp.y - c2.y)){
+            options.push_back({temp.y - 1, temp.x});
+        }
+        if(options.size() == 0){
             break;
         }
+
+        temp = options[rng::rand(0,options.size() - 1)];
 
         Tile cur_tile = tiles[temp.y][temp.x];
 
