@@ -36,6 +36,7 @@ void PlayerAI::handleInput(Actor* owner, int input){
                 cur_action = Action::WAIT;
                 break;
             default:
+                cur_action = Action::WAIT;
                 break;
         }
     }

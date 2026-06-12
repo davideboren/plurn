@@ -68,13 +68,13 @@ void Engine::initPanels(){
     w_world = newwin(MAP_HEIGHT, MAP_WIDTH, y_pad + 1, x_pad);
     w_info = newwin(1, SCREEN_WIDTH, y_pad + 1 + MAP_HEIGHT, x_pad);
 
-    MapBuilder mb;
-    Map m = mb.buildMapFromJSONFile("data/map1.json");
-    world.map = m;
-    world.player.pos = {5, 68};
+    //MapBuilder mb;
+    //Map m = mb.buildMapFromJSONFile("data/map1.json");
+    //world.map = m;
+    //world.player.pos = {5, 68};
     //world.map.createRoomsBSP(MAP_HEIGHT - 2, MAP_WIDTH - 2, {1,1});
     //world.player.pos = world.map.createRoomsRandom();
-    //world.player.pos = world.map.createRoomsSimple();
+    world.player.pos = world.map.createRoomsSimple();
 
     world.initEntities();
 }
@@ -120,6 +120,11 @@ void Engine::render(){
                 mvwaddch(w_world, y, x, world.map.tiles[y][x].ch | COLOR_PAIR(SEEN_COLOR));
             } else{
                 mvwaddch(w_world, y, x, ' ');
+            }
+            //Show DMap
+            if(world.map.tiles[y][x].ch == '.' || world.map.tiles[y][x].ch == '#')
+            {
+                mvwaddch(w_world, y, x, world.map.dmap[y][x] + '0');
             }
         }
     }

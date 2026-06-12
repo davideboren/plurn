@@ -1,5 +1,6 @@
 #include <plurn.h>
 #include <fmt/core.h>
+#include <queue>
 
 void Mover::tryMove(Actor* owner, WorldWiz* wiz, Position pos){
     if(!owner->destructible->isDead()){
@@ -16,4 +17,8 @@ void Mover::tryMove(Actor* owner, WorldWiz* wiz, Position pos){
             owner->pos.x += pos.x;
         }
     }
+}
+
+void Mover::moveToward(WorldWiz* wiz, Actor* owner, Position target){
+    std::priority_queue<int> options;
 }

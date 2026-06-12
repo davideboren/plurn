@@ -18,6 +18,8 @@ Map::Map(){
             tiles[y][x].transparent = false;
             tiles[y][x].visible = false;
             tiles[y][x].seen = false;
+
+            dmap[y][x] = MAP_HEIGHT * MAP_WIDTH;
         }
     }
 }
@@ -183,3 +185,63 @@ int Map::charAt(int y, int x){
     return '?';
 }
 
+void Map::clearDMap(){
+    for(int y = 0; y < MAP_HEIGHT; y++){
+        for(int x = 0; x < MAP_WIDTH; x++){
+            dmap[y][x] = MAP_HEIGHT * MAP_WIDTH;
+        }
+    }
+}
+
+void Map::buildDMap(Position pos){
+    clearDMap();
+
+    dmap[pos.y][pos.x] = 0;
+
+    bool made_change = true;
+
+    while(made_change){
+
+        made_change = false;
+
+        for(int y = 0; y < MAP_HEIGHT; y++){
+            for(int x = 0; x < MAP_WIDTH; x++){
+                if(!tiles[y][x].walkable){
+                    continue;
+                }
+                int lowest_neighb = getLowestNeighbor({y, x});
+                if(dmap[y][x] - lowest_neighb > 1){
+                    dmap[y][x] = lowest_neighb + 1;
+                    made_change = true;
+                }
+            }
+        }
+    }
+}
+
+int Map::getLowestNeighbor(Position pos){
+    int min = MAP_HEIGHT * MAP_WIDTH;
+
+    for(int y = pos.y - 1; y <= pos.y + 1; y++){
+        for(int x = pos.x - 1; x <= pos.x + 1; x++){
+            if(y == pos.y && x == pos.x){
+                continue;
+            }
+            if(inMap({y, x}) && tiles[y][x].walkable){ //Will need to add actor check here
+                if(dmap[y][x] < min){
+                    min = dmap[y][x];
+                }
+            }
+        }
+    }
+
+    return min;
+}
+
+bool Map::inMap(Position pos){
+    if(pos.y >= 0 && pos.y < MAP_HEIGHT && pos.x >= 0 && pos.x < MAP_WIDTH){
+        return true;
+    } else {
+        return false;
+    }
+}
