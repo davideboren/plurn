@@ -9,6 +9,7 @@ class MonsterAI : public AI{
 
         void handleInput(Actor* owner, int input);
         void update(Actor* owner);
+        void chasePlayer(Actor* owner);
 };
 
 #endif

@@ -122,9 +122,11 @@ void Engine::render(){
                 mvwaddch(w_world, y, x, ' ');
             }
             //Show DMap
-            if(world.map.tiles[y][x].ch == '.' || world.map.tiles[y][x].ch == '#')
-            {
-                mvwaddch(w_world, y, x, world.map.dmap[y][x] + '0');
+            if(false){
+                if(world.map.tiles[y][x].ch == '.' || world.map.tiles[y][x].ch == '#')
+                {
+                    mvwaddch(w_world, y, x, world.map.dmap[y][x] + '0');
+                }
             }
         }
     }

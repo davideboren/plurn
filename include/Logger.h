@@ -1,6 +1,7 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#include <fmt/core.h>
 #include <fstream>
 #include <sstream>
 #include <string>

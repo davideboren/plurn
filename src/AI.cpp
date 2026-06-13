@@ -1,6 +1,7 @@
-#include <fov.h>
-
 #include <AI.h>
+#include <Logger.h>
+
+#include <fov.h>
 
 void AI::tryAction(Actor* owner){
     switch(cur_action.type){
@@ -8,6 +9,11 @@ void AI::tryAction(Actor* owner){
             break;
         case Action::MOVE:
             if(owner->mover){
+                if(owner->attacker->target){
+                    Logger::log(fmt::format("Trying move [{},{}]->[{},{}]",
+                        owner->pos.y, owner->pos.x,
+                        cur_action.dy, cur_action.dx));
+                }
                 owner->mover->tryMove(owner, wiz, {cur_action.dy, cur_action.dx});
             }
             break;

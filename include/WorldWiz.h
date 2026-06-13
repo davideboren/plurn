@@ -24,6 +24,7 @@ class WorldWiz {
 
         Actor* actorAt(Position pos);
         bool walkable(Position pos);
+        Position rollDown(Position pos);
 };
 
 #endif
