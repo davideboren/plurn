@@ -15,6 +15,7 @@ void Player::initPlayer(WorldWiz* wwiz){
     ch = '@';
     color = COLOR_PAIR(PLAYER_COLOR);
     visible = true;
+    blocks = true;
     wiz = wwiz;
 
     destructible = new Destructible(9, 9, "Dead guy");

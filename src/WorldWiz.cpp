@@ -33,14 +33,14 @@ bool WorldWiz::walkable(Position pos){
 }
 
 Position WorldWiz::rollDown(Position pos){
-    Position low_pos = pos;
+    Position low_vec = {0,0};
     for(int y = -1; y <= 1; y++){
         for(int x = -1; x <= 1; x++){
-            if(map->dmap[pos.y + y][pos.x + x] < map->dmap[pos.y + low_pos.y][pos.x + low_pos.x]){
-               low_pos = {y, x};
+            if(map->dmap[pos.y + y][pos.x + x] < map->dmap[pos.y + low_vec.y][pos.x + low_vec.x]){
+               low_vec = {y, x};
            }
         }
     }
 
-    return {low_pos.y, low_pos.x};
+    return {low_vec.y, low_vec.x};
 }
