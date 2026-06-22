@@ -74,7 +74,7 @@ void Engine::initPanels(){
     //world.player.pos = {5, 68};
     //world.map.createRoomsBSP(MAP_HEIGHT - 2, MAP_WIDTH - 2, {1,1});
     //world.player.pos = world.map.createRoomsRandom();
-    world.player.pos = world.map.createRoomsSimple();
+    world.player.pos = world.map.createRoomsDijkstra();
 
     world.initEntities();
 }
@@ -114,7 +114,7 @@ void Engine::render(){
     // Render map
     for(int y = 0; y < MAP_HEIGHT; y++){
         for(int x = 0; x < MAP_WIDTH; x++){
-            if(world.map.tiles[y][x].visible){
+            if(world.map.tiles[y][x].visible || SEE_ALL){
                 mvwaddch(w_world, y, x, world.map.tiles[y][x].ch | world.map.tiles[y][x].color);
             } else if(world.map.tiles[y][x].seen){
                 mvwaddch(w_world, y, x, world.map.tiles[y][x].ch | COLOR_PAIR(SEEN_COLOR));

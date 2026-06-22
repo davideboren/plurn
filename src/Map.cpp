@@ -122,6 +122,83 @@ Position Map::createRoomsSimple(){
     return centers[rng::rand(0,num_sectors - 1)];
 }
 
+Position Map::createRoomsDijkstra(){
+    int sector_rows = 3;
+    int sector_cols = 4;
+    int num_sectors = sector_rows * sector_cols;
+
+    Position centers[num_sectors];
+    int centers_idx = 0;
+
+    for(int y = 0; y < sector_rows; y++){
+        for(int x = 0; x < sector_cols; x++){
+            int sector_height = MAP_HEIGHT / sector_rows;
+            int sector_width = MAP_WIDTH / sector_cols;
+
+            int room_height = rng::rand(3, sector_height - 4);
+            int room_width = rng::rand(3, sector_width - 2);
+            int room_y = y * sector_height + rng::rand(1, sector_height - room_height - 1);
+            int room_x = x * sector_width + rng::rand(1, sector_width - room_width - 1);
+
+            //Logger::log(fmt::format("Making room: ({}, {}), {}x{}", room_y, room_x, room_height, room_width));
+
+            Room r({room_y, room_x}, room_height, room_width);
+            digRoom(r);
+            drawWalls(&r);
+            //todo: Draw walls with doors
+            centers[centers_idx] = r.center;
+            centers_idx++;
+        }
+    }
+
+    //todo: build dmap for UNDEF_TILES based on door locations
+    //For each door, roll down to nearest door and draw corridor (imperfect paths)
+
+    //drawWalls();
+
+    return centers[rng::rand(0,num_sectors - 1)];
+}
+
+void Map::drawWalls(Room* r){
+    std::vector<Position> walls;
+
+    //Draw walls and add door candidates to vector
+    int xw = r->pos.x - 1;
+    int xe = r->pos.x + r->width;
+    for(int y = r->pos.y; y < r->pos.y + r->height; y++){
+       if(inMap({y, xw})){
+            tiles[y][xw].ch = '|';
+            walls.push_back({y, xw});
+       }
+       if(inMap({y, xe})){
+            tiles[y][xe].ch = '|';
+            walls.push_back({y, xe});
+       }
+    }
+    int yn = r->pos.y - 1;
+    int ys = r->pos.y + r->height;
+    for(int x = r->pos.x - 1; x < r->pos.x + r->width + 1; x++){
+        if(inMap({yn, x})){
+            tiles[yn][x].ch = '-';
+            walls.push_back({yn, x});
+        }
+       if(inMap({ys, x})){
+            tiles[ys][x].ch = '-';
+            walls.push_back({ys, x});
+       }
+    }
+
+    //Populate doors
+    int num_doors = rng::rand(1, 3);
+    for(int i = 0; i < num_doors; i++){
+        Position door_pos = walls[rng::rand(0, walls.size() - 1)];
+        tiles[door_pos.y][door_pos.x].ch = '+';
+        tiles[door_pos.y][door_pos.x].walkable = true;
+        tiles[door_pos.y][door_pos.x].transparent = false;
+        tiles[door_pos.y][door_pos.x].color = COLOR_PAIR(PLAYER_COLOR);
+    }
+}
+
 void Map::connectPoints(Position c1, Position c2){
     //Logger::log(fmt::format("Connecting ({}, {})->({}, {})", c1.y, c1.x, c2.y, c2.x));
     Position temp;

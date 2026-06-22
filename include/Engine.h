@@ -23,6 +23,8 @@ class Engine {
         WINDOW* w_info;
         World world;
 
+        static const bool SEE_ALL = true;
+
 };
 
 #endif

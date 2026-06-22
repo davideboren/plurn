@@ -12,6 +12,8 @@ class Map {
         Position createRoomsBSP(int h, int w, Position pos);
         Position createRoomsRandom();
         Position createRoomsSimple();
+        Position createRoomsDijkstra();
+        void drawWalls(Room* r);
         void connectPoints(Position c1, Position c2);
         void drawWalls();
         int charAt(int y, int x);
