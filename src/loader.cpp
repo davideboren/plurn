@@ -4,6 +4,8 @@
 #include <json.hpp>
 #include <Logger.h>
 
+#include <MonsterAI.h>
+
 using json = nlohmann::json;
 
 namespace loader{
@@ -16,14 +18,24 @@ namespace loader{
             std::ifstream f(filename);
             json jdata = json::parse(f);
 
-            out_actor->name = jdata["slimoid"]["name"];
-            std::string ch_str = jdata["slimoid"]["ch"];
+            out_actor->name = jdata[actor]["name"];
+            std::string ch_str = jdata[actor]["ch"];
             out_actor->ch = static_cast<int>(ch_str[0]);
 
-            //out_actor->destructible = 
-            //out_actor->attacker = 
-            //out_actor->mover = 
-            //out_actor->ai = 
+            if(jdata[actor].contains("destructible")){
+                int hp = jdata[actor]["destructible"]["hp"];
+                int max_hp = jdata[actor]["destructible"]["max_hp"];
+                std::string corpse_name = jdata[actor]["destructible"]["corpse_name"];
+                out_actor->destructible= new Destructible(hp, max_hp, corpse_name);
+            }
+            if(jdata[actor].contains("attacker")){
+                int power = jdata[actor]["attacker"]["power"];
+                out_actor->attacker = new Attacker(wiz, power);
+            }
+            if(jdata[actor].contains("mover")){
+                out_actor->mover = new Mover();
+            }
+            out_actor->ai = new MonsterAI(wiz);
 
         } catch (const std::exception& e){
             Logger::log(fmt::format("{}", e.what()));

@@ -1,6 +1,18 @@
 {
-    "slimoid":{
+    "slimoid":
+    {
         "name" : "slimoid",
-        "ch" : "s"
+        "ch" : "s",
+        "destructible" :
+        {
+            "hp" : 3,
+            "max_hp" : 3,
+            "corpse_name" : "dead slimoid"
+        },
+        "mover" : true,
+        "attacker":
+        {
+            "power" : 1
+        }
     }
 }
