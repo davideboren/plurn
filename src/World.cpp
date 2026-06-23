@@ -8,6 +8,7 @@
 #include <constants.h>
 #include <fov.h>
 #include <rng.h>
+#include <loader.h>
 
 #include <Actor.h>
 #include <Action.h>
@@ -27,10 +28,8 @@ void World::initEntities(){
                 continue;
             }
             if(map.charAt(y, x) == '.' && !rng::rand(0,15)){
-                Actor* monster = new Actor(&wiz);
-                monster->name = "slimoid";
+                Actor* monster = loader::loadActor("data/monsters.json", "slimoid", &wiz);
                 monster->pos = {y, x};
-                monster->ch = 's';
                 monster->color = COLOR_PAIR(MONSTER_COLOR);
                 monster->destructible = new Destructible(3, 3, "dead slimoid");
                 monster->attacker = new Attacker(&wiz, 1);

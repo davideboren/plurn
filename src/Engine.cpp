@@ -74,7 +74,7 @@ void Engine::initPanels(){
     //world.player.pos = {5, 68};
     //world.map.createRoomsBSP(MAP_HEIGHT - 2, MAP_WIDTH - 2, {1,1});
     //world.player.pos = world.map.createRoomsRandom();
-    world.player.pos = world.map.createRoomsDijkstra();
+    world.player.pos = world.map.createRoomsSimple();
 
     world.initEntities();
 }
