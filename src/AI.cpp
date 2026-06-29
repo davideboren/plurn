@@ -9,11 +9,6 @@ void AI::tryAction(Actor* owner){
             break;
         case Action::MOVE:
             if(owner->mover){
-                if(owner->attacker->target){
-                    Logger::log(fmt::format("Trying move [{},{}]->[{},{}]",
-                        owner->pos.y, owner->pos.x,
-                        cur_action.dy, cur_action.dx));
-                }
                 owner->mover->tryMove(owner, wiz, {cur_action.dy, cur_action.dx});
             }
             break;
@@ -25,6 +20,9 @@ void AI::tryAction(Actor* owner){
             }
             break;
         case Action::PICK_UP:
+            if(owner->inventory){
+                owner->inventory->pickUp(owner->pos);
+            }
             break;
         default:
             break;

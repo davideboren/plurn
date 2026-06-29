@@ -23,6 +23,7 @@ class WorldWiz {
             map(map), actors(actors), feed(feed){};
 
         Actor* actorAt(Position pos);
+        std::vector<Actor*> actorsAt(Position pos);
         bool walkable(Position pos);
         Position rollDown(Position pos);
 };

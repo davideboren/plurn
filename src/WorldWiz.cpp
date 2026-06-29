@@ -16,6 +16,18 @@ Actor* WorldWiz::actorAt(Position pos){
     return out;
 }
 
+std::vector<Actor*> WorldWiz::actorsAt(Position pos){
+    std::vector<Actor*> out;
+
+    for(Actor* actor : *actors){
+        if(actor->pos == pos){
+            out.push_back(actor);
+        }
+    }
+
+    return out;
+}
+
 bool WorldWiz::walkable(Position pos){
     if(pos.y >= MAP_HEIGHT || pos.x >= MAP_WIDTH){
         return false;

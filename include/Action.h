@@ -1,6 +1,9 @@
 #ifndef ACTION_H
 #define ACTION_H
 
+#include <vector>
+class Actor;
+
 class Action {
 
     public:
@@ -11,10 +14,25 @@ class Action {
             PICK_UP
         };
 
-        Action() : type(Action::WAIT){};
-        Action(Type t) : type(t){};
         Type type;
 
+        // Movement
         int dy, dx;
+
+        // Inventory
+        std::vector<Actor*> pickup_targets;
+
+        Action() :
+            type(Action::WAIT),
+            dy(0),
+            dx(0)
+            {};
+
+        Action(Type t) :
+            type(t),
+            dy(0),
+            dx(0)
+            {};
+
 };
 #endif

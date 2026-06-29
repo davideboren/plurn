@@ -22,4 +22,5 @@ void Player::initPlayer(WorldWiz* wwiz){
     attacker = new Attacker(wiz, 2);
     mover = new Mover();
     ai = new PlayerAI(wiz);
+    inventory = new Inventory(wiz);
 }
