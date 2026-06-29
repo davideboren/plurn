@@ -1,4 +1,5 @@
 #include <fov.h>
+#include <Logger.h>
 
 #include <cmath>
 #include <vector>
@@ -44,7 +45,7 @@ namespace fov{
         player->visible = true;
         for(Actor* actor : *actors){
             if(lineOfSight(map, player->pos, actor->pos)
-                && getDistance(player->pos, actor->pos) < terrain_radius){
+                && getDistance(player->pos, actor->pos) < RADIUS){
                 actor->visible = true;
             }
         }

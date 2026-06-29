@@ -18,7 +18,7 @@ void Player::initPlayer(WorldWiz* wwiz){
     blocks = true;
     wiz = wwiz;
 
-    destructible = new Destructible(9, 9, "Dead guy");
+    destructible = new Destructible(999, 999, "Dead guy");
     attacker = new Attacker(wiz, 2);
     mover = new Mover();
     ai = new PlayerAI(wiz);

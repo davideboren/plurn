@@ -52,6 +52,7 @@ class Actor {
             mover(nullptr),
             ai(nullptr),
             name("a creature"),
+            visible(false),
             blocks(true),
             wiz(wwiz){};
 };

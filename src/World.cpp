@@ -28,7 +28,7 @@ void World::initEntities(){
                 continue;
             }
             if(map.charAt(y, x) == '.' && !rng::rand(0,15)){
-                Actor* monster = loader::loadActor("data/monsters.json", "slimoid", &wiz);
+                Actor* monster = loader::loadActor("data/monsters.json", "ant", &wiz);
                 monster->pos = {y, x};
                 monster->color = COLOR_PAIR(MONSTER_COLOR);
                 actors.push_back(monster);

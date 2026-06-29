@@ -12,6 +12,5 @@ class Mover {
         Mover() : dy(0), dx(0){};
 
         void tryMove(Actor* owner, WorldWiz* wiz, Position pos);
-        void moveToward(WorldWiz* wiz, Actor* owner, Position target);
 };
 #endif

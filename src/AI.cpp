@@ -24,6 +24,8 @@ void AI::tryAction(Actor* owner){
                 }
             }
             break;
+        case Action::PICK_UP:
+            break;
         default:
             break;
     }

@@ -1,13 +1,13 @@
 {
-    "slimoid":
+    "ant":
     {
-        "name" : "slimoid",
-        "ch" : "s",
+        "name" : "ant",
+        "ch" : "a",
         "destructible" :
         {
             "hp" : 3,
             "max_hp" : 3,
-            "corpse_name" : "dead slimoid"
+            "corpse_name" : "dead ant"
         },
         "mover" : true,
         "attacker":

@@ -7,7 +7,8 @@ class Action {
         enum Type {
             WAIT,
             MOVE,
-            ATTACK
+            ATTACK,
+            PICK_UP
         };
 
         Action() : type(Action::WAIT){};

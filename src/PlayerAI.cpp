@@ -32,6 +32,9 @@ void PlayerAI::handleInput(Actor* owner, int input){
             case 'y':
                 setMove(owner, -1, -1); 
                 break;
+            case ',':
+                cur_action = Action::PICK_UP;
+                break;
             case '.':
                 cur_action = Action::WAIT;
                 break;
