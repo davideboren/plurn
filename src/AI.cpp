@@ -21,7 +21,7 @@ void AI::tryAction(Actor* owner){
             break;
         case Action::PICK_UP:
             if(owner->inventory){
-                owner->inventory->pickUp(owner->pos);
+                owner->inventory->pickUp(owner, owner->pos);
             }
             break;
         default:

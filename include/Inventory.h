@@ -13,7 +13,7 @@ class Inventory {
 
         Inventory(WorldWiz* wiz): wiz(wiz){};
 
-        void pickUp(Position pos);
+        void pickUp(Actor* owner, Position pos);
 };
 
 #endif

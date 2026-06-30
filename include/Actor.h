@@ -16,6 +16,7 @@ class AI;
 #include <AI.h>
 class Inventory;
 #include <Inventory.h>
+#include <Collectible.h>
 
 #include <WorldWiz.h>
 
@@ -29,6 +30,7 @@ class Actor {
         Mover* mover;
         AI* ai;
         Inventory* inventory;
+        Collectible* collectible;
 
         std::string name;
         Position pos;
@@ -47,6 +49,7 @@ class Actor {
             mover(nullptr),
             ai(nullptr),
             inventory(nullptr),
+            collectible(nullptr),
             name("a creature"),
             blocks(true){};
 
@@ -56,6 +59,7 @@ class Actor {
             mover(nullptr),
             ai(nullptr),
             inventory(nullptr),
+            collectible(nullptr),
             name("a creature"),
             visible(false),
             blocks(true),

@@ -37,6 +37,12 @@ namespace loader{
             }
             out_actor->ai = new MonsterAI(wiz);
 
+            if(jdata[actor].contains("collectible")){
+                if(jdata[actor]["collectible"] == true){
+                    out_actor->collectible = new Collectible();
+                }
+            }
+
         } catch (const std::exception& e){
             Logger::log(fmt::format("{}", e.what()));
 

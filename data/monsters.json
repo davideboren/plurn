@@ -13,6 +13,7 @@
         "attacker":
         {
             "power" : 1
-        }
+        },
+        "collectible": false
     }
 }
