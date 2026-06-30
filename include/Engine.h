@@ -19,10 +19,11 @@ class Engine {
 
         WINDOW* w_stats;
         WINDOW* w_world;
-        WINDOW* w_dialogue;
+        WINDOW* w_inv;
         WINDOW* w_info;
         World world;
 
+        bool inv_open;
         static const bool SEE_ALL = false;
 
 };

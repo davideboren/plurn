@@ -67,6 +67,8 @@ void Engine::initPanels(){
     w_stats = newwin(1, SCREEN_WIDTH, y_pad, x_pad);
     w_world = newwin(MAP_HEIGHT, MAP_WIDTH, y_pad + 1, x_pad);
     w_info = newwin(1, SCREEN_WIDTH, y_pad + 1 + MAP_HEIGHT, x_pad);
+    w_inv = newwin(INV_HEIGHT, INV_WIDTH, y_pad + 2, x_pad);
+    inv_open = false;
 
     //MapBuilder mb;
     //Map m = mb.buildMapFromJSONFile("data/map1.json");
@@ -88,13 +90,20 @@ void Engine::gameLoop(){
             break;
         }
         handleInput(ch);
-        update();
+        if(!inv_open){
+            update();
+        }
         render();
     }
 }
 
 int Engine::handleInput(int input){
-    world.handleInput(input);
+    if(input == 'i'){
+        inv_open = !inv_open;
+    }
+    if(!inv_open){
+        world.handleInput(input);
+    }
     return 0;
 }
 
@@ -106,6 +115,7 @@ void Engine::render(){
     werase(w_stats);
     werase(w_world);
     werase(w_info);
+    werase(w_inv);
 
     // Render stats
     std::string stat_line = fmt::format("HP: [{}/{}]", world.player.destructible->hp, world.player.destructible->max_hp);
@@ -142,7 +152,27 @@ void Engine::render(){
     std::string msg = world.feed.pop();
     mvwprintw(w_info, 0, 0, msg.c_str());
 
+    // Render inventory
+    // Inv border
+    for(int y = 0; y < INV_HEIGHT; y++){
+        mvwaddch(w_inv, y, 0, '|');
+        mvwaddch(w_inv, y, INV_WIDTH - 1, '|');
+    }
+    for(int x = 0; x < INV_WIDTH; x++){
+        mvwaddch(w_inv, 0, x, '-');
+        mvwaddch(w_inv, INV_HEIGHT - 1, x, '-');
+    }
+    // Inv Contents
+    int y = 1;
+    for (Actor* item : world.player.inventory->contents){
+        mvwprintw(w_inv, y, 1, item->name.c_str());
+        y++;
+    }
+
     wrefresh(w_stats);
     wrefresh(w_world); 
     wrefresh(w_info); 
+    if(inv_open){
+        wrefresh(w_inv);
+    }
 }
