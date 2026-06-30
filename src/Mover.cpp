@@ -5,7 +5,12 @@ void Mover::tryMove(Actor* owner, WorldWiz* wiz, Position pos){
     if(!owner->destructible->isDead()){
         Position new_pos = {owner->pos.y + pos.y, owner->pos.x + pos.x};
 
-        Actor* obstacle = wiz->actorAt(new_pos);
+        Actor* obstacle = nullptr;
+        for(Actor* actor : wiz->actorsAt(new_pos)){
+           if(actor->blocks){
+               obstacle = actor;
+           }
+        }
 
         if(obstacle && obstacle->blocks){
             if(owner->attacker && obstacle->destructible && owner->name != obstacle->name){
