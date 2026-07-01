@@ -29,7 +29,7 @@ namespace fov{
                 if(isInMap(y, x) && map->tiles[y][x].ch == '#'){
                     terrain_radius = 2;
                 } else {
-                    terrain_radius = 12;
+                    terrain_radius = RADIUS;
                 }
 
                 if(distance < terrain_radius){

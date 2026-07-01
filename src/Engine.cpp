@@ -30,6 +30,7 @@ bool Engine::initCurses(){
         init_pair(VISIBLE_COLOR, COLOR_WHITE, COLOR_BLACK);
         init_pair(SEEN_COLOR, COLOR_BLUE, COLOR_BLACK);
         init_pair(MONSTER_COLOR, COLOR_RED, COLOR_BLACK);
+        init_pair(INVERTED_COLOR, COLOR_BLACK, COLOR_WHITE);
     } else {
         mvprintw(0, 0, "No color support, dying.");
         getch();
@@ -67,7 +68,7 @@ void Engine::initPanels(){
     w_stats = newwin(1, SCREEN_WIDTH, y_pad, x_pad);
     w_world = newwin(MAP_HEIGHT, MAP_WIDTH, y_pad + 1, x_pad);
     w_info = newwin(1, SCREEN_WIDTH, y_pad + 1 + MAP_HEIGHT, x_pad);
-    w_inv = newwin(INV_HEIGHT, INV_WIDTH, y_pad + 2, x_pad);
+    w_inv = newwin(INV_HEIGHT, INV_WIDTH, y_pad + 2, x_pad + SCREEN_WIDTH - INV_WIDTH - 1);
     inv_open = false;
 
     //MapBuilder mb;
@@ -162,8 +163,12 @@ void Engine::render(){
         mvwaddch(w_inv, 0, x, '-');
         mvwaddch(w_inv, INV_HEIGHT - 1, x, '-');
     }
+    // Inv Title
+    wattron(w_inv, COLOR_PAIR(INVERTED_COLOR));
+    mvwprintw(w_inv, 1, 1, " - Inventory - ");
+    wattroff(w_inv, COLOR_PAIR(INVERTED_COLOR));
     // Inv Contents
-    int y = 1;
+    int y = 2;
     for (Actor* item : world.player.inventory->contents){
         mvwprintw(w_inv, y, 1, item->name.c_str());
         y++;

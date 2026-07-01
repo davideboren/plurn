@@ -5,12 +5,13 @@
 #define VISIBLE_COLOR 2
 #define SEEN_COLOR 3
 #define MONSTER_COLOR 4
+#define INVERTED_COLOR 5
 
 const int SCREEN_HEIGHT = 25;
 const int SCREEN_WIDTH = 80;
 const int MAP_HEIGHT = 23;
 const int MAP_WIDTH = 80;
-const int INV_HEIGHT = MAP_HEIGHT;
+const int INV_HEIGHT = MAP_HEIGHT - 1;
 const int INV_WIDTH = MAP_WIDTH / 3;
 
 #endif
